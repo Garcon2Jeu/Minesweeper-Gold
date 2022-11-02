@@ -39,6 +39,10 @@ end
 
 
 function FlagMode:toggle()
+    if gamePlay.sweepers.activated then
+        gamePlay.sweepers.activated = false 
+    end
+    
     if gamePlay.play then
         if self.activated then
             self.activated = false

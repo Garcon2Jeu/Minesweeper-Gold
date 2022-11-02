@@ -46,6 +46,3 @@ function LeftBar:processLeftBarElementsY(topBar)
 
     return y
 end
-
-
-

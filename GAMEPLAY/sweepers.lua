@@ -19,6 +19,10 @@ end
 
 
 function Sweepers:toggle()
+    if ui.leftBar.flagMode.activated then
+        ui.leftBar.flagMode.activated = false
+    end
+
     if self.activated then 
         self.activated = false
     else

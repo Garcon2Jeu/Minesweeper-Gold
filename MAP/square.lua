@@ -85,23 +85,27 @@ end
 
 
 function Square:highlight()
-    local mouse = getMousePosition()
-
     if gamePlay.start 
-    or gamePlay.play then
-        if isMouseOverSquare(self) then
-            if gamePlay.sweepers.activated 
-            and self.cleared == false then
-                self.color = purple
-            elseif self.cleared == false then
-                self.color = grey
-            end
-        else
-            if self.isGolden then 
-                self.color = yellow
-            else 
-                self.color = white
-            end
+    or gamePlay.play then  
+        self.color = white
+
+        if self.isGolden then 
+            self.color = yellow
+        end
+
+        if isMouseOverSquare(self) == false 
+        or self.cleared then
+            return
+        end
+
+        self.color = grey
+
+        if gamePlay.sweepers.activated then
+            self.color = purple
+        end
+        
+        if ui.leftBar.flagMode.activated then
+            self.color = red
         end
     end
 end
