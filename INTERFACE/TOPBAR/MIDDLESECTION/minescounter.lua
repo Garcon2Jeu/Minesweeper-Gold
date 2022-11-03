@@ -1,5 +1,3 @@
-
-
 MinesCounter = Object:extend()
 
 function MinesCounter:new(topBar, middleSection)
@@ -9,7 +7,7 @@ function MinesCounter:new(topBar, middleSection)
     self.height = topBar.height
     self.drawMode = "line"
     self.color     = {filling = white, font = white}
-    self.remaining = 40
+    self.remaining = gamePlay.mapData.mines
 
     self.title = {}
         self.title.x        = self.x
@@ -23,19 +21,22 @@ function MinesCounter:new(topBar, middleSection)
         self.counter.y        = self.title.y + self.title.height
         self.counter.width    = self.width
         self.counter.height   = getNumberFromPercentage(topBar.height, 70)
-        self.counter.textData = centerText(self.remaining, FontBig, self.counter)    
+        self.counter.textData = centerText(self.remaining, FontBig, self.counter)
+end
+
+function MinesCounter:update(square)
+    if square.isMine
+    and square.swept then
+        self.remaining = self.remaining -1
+        return
+    end
     
+    if square.flagged then
+        self.remaining = self.remaining -1
+    else
+        self.remaining = self.remaining +1
+    end
 
-
-    --self.counter = {
-        --current = 0, 
-        --total   = map.mines,
-        --currentTransform = love.math.newTransform(self.x +15 , self.y +32),
-        --totalTransform = love.math.newTransform(self.x -10 , self.y +55),
-        --limit     = self.width,
-        --currentAlign     = "left",
-        --totalAlign     = "right",
-    --}
 end
 
 function MinesCounter:draw()
@@ -51,7 +52,7 @@ function MinesCounter:draw()
     love.graphics.rectangle(self.drawMode, self.counter.x, self.counter.y, self.counter.width, self.counter.height)
 
     love.graphics.setColor(self.color.font)
-    love.graphics.printf(self.counter.textData.text, self.counter.textData.font, self.counter.textData.transform, 
+    love.graphics.printf(self.remaining, self.counter.textData.font, self.counter.textData.transform, 
                          self.counter.textData.limit, self.counter.textData.align)
 end
 

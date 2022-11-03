@@ -1,5 +1,3 @@
-
-
 GoldCounter = Object:extend()
 
 function GoldCounter:new(topBar, middleSection)
@@ -9,7 +7,7 @@ function GoldCounter:new(topBar, middleSection)
     self.height    = topBar.height
     self.drawMode  = "line"
     self.color     = {filling = white, font = white}
-    self.remaining = 40
+    self.remaining = gamePlay.mapData.gold
 
     self.title = {}
         self.title.x        = self.x
@@ -26,6 +24,11 @@ function GoldCounter:new(topBar, middleSection)
         self.counter.textData = centerText(self.remaining, FontBig, self.counter)   
 end
 
+function GoldCounter:update()
+    self.remaining = self.remaining -1
+end
+
+
 function GoldCounter:draw()
     love.graphics.setColor(self.color.filling)
     love.graphics.rectangle(self.drawMode, self.title.x, self.title.y, self.title.width, self.title.height)
@@ -38,7 +41,7 @@ function GoldCounter:draw()
     love.graphics.rectangle(self.drawMode, self.counter.x, self.counter.y, self.counter.width, self.counter.height)
                      
     love.graphics.setColor(self.color.font)
-    love.graphics.printf(self.counter.textData.text, self.counter.textData.font, self.counter.textData.transform, 
+    love.graphics.printf(self.remaining, self.counter.textData.font, self.counter.textData.transform, 
                          self.counter.textData.limit, self.counter.textData.align)
 end
 

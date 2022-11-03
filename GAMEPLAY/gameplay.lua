@@ -98,6 +98,7 @@ function GamePlay:rightClick(gamePlay, square)
         else
             square.flagged = false
         end
+        ui.topBar.middleSection.minesCounter:update(square)
         ui.leftBar.flagMode.activated = false
     end
 end
