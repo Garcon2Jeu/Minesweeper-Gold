@@ -30,13 +30,18 @@ function MinesCounter:update(square)
         self.remaining = self.remaining -1
         return
     end
+
+    if square.isGolden 
+    or not square.isMine then
+        return
+    end
     
     if square.flagged then
         self.remaining = self.remaining -1
-    else
-        self.remaining = self.remaining +1
+        return
     end
-
+    
+    self.remaining = self.remaining +1
 end
 
 function MinesCounter:draw()
