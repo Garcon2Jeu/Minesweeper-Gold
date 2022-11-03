@@ -19,6 +19,7 @@ function Ui:update()
     self:highlightElements()
 
     self.topBar.menuButton:update()
+    self.topBar.middleSection.sweepersCounter:update()
     self.topBar.newGameButton:update()
 
     self.leftBar.zoom:update()

@@ -16,10 +16,11 @@ function SweepersCounter:new(topBar, middleSection)
         self.title.textData = centerText("SWEEPERS", FontSmall, self.title)
 
     self.progress = {}
-        self.progress.x      = self.x
-        self.progress.y      = self.title.y + self.title.height
-        self.progress.width  = self.width
-        self.progress.height = getNumberFromPercentage(topBar.height, 20)
+        self.progress.x       = self.x
+        self.progress.y       = self.title.y + self.title.height
+        self.progress.width   = self.width
+        self.progress.height  = getNumberFromPercentage(topBar.height, 20)
+        self.progress.filling = 0
 
     self.inventory = {}
         self.inventory.x      = self.x
@@ -28,19 +29,36 @@ function SweepersCounter:new(topBar, middleSection)
         self.inventory.height = getNumberFromPercentage(topBar.height, 50)
 end
 
+
+function SweepersCounter:update()
+    self.progress.filling = self.progress.width / gamePlay.sweepers.progress.max 
+                            * gamePlay.sweepers.progress.current
+    print(gamePlay.sweepers.progress.max)
+end
+
+
 function SweepersCounter:draw()
     love.graphics.setColor(self.color.filling)
-    love.graphics.rectangle(self.drawMode, self.title.x, self.title.y, self.title.width, self.title.height)
+    love.graphics.rectangle(self.drawMode, self.title.x, self.title.y, 
+                            self.title.width, self.title.height)
 
     love.graphics.setColor(self.color.font)
-    love.graphics.printf(self.title.textData.text, self.title.textData.font, self.title.textData.transform, 
-                         self.title.textData.limit, self.title.textData.align)
+    love.graphics.printf(self.title.textData.text, self.title.textData.font, 
+                         self.title.textData.transform, self.title.textData.limit, 
+                         self.title.textData.align)
+
 
     love.graphics.setColor(self.color.filling)
-    love.graphics.rectangle(self.drawMode, self.inventory.x, self.inventory.y, self.inventory.width, self.inventory.height)
+    love.graphics.rectangle(self.drawMode, self.progress.x, self.progress.y, 
+                            self.progress.width, self.progress.height)
+    love.graphics.setColor(self.color.font)
+    love.graphics.rectangle("fill", self.progress.x, self.progress.y, 
+                            self.progress.filling, self.progress.height)
+
     
     love.graphics.setColor(self.color.filling)
-    love.graphics.rectangle(self.drawMode, self.inventory.x, self.inventory.y, self.inventory.width, self.inventory.height)
+    love.graphics.rectangle(self.drawMode, self.inventory.x, self.inventory.y, 
+                            self.inventory.width, self.inventory.height)
 end
 
 

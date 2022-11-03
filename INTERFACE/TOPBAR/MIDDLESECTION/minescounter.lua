@@ -9,6 +9,7 @@ function MinesCounter:new(topBar, middleSection)
     self.height = topBar.height
     self.drawMode = "line"
     self.color     = {filling = white, font = white}
+    self.remaining = 40
 
     self.title = {}
         self.title.x        = self.x
@@ -22,6 +23,7 @@ function MinesCounter:new(topBar, middleSection)
         self.counter.y        = self.title.y + self.title.height
         self.counter.width    = self.width
         self.counter.height   = getNumberFromPercentage(topBar.height, 70)
+        self.counter.textData = centerText(self.remaining, FontBig, self.counter)    
     
 
 
@@ -43,9 +45,14 @@ function MinesCounter:draw()
     love.graphics.setColor(self.color.font)
     love.graphics.printf(self.title.textData.text, self.title.textData.font, self.title.textData.transform, 
                          self.title.textData.limit, self.title.textData.align)
+
     
     love.graphics.setColor(self.color.filling)
     love.graphics.rectangle(self.drawMode, self.counter.x, self.counter.y, self.counter.width, self.counter.height)
+
+    love.graphics.setColor(self.color.font)
+    love.graphics.printf(self.counter.textData.text, self.counter.textData.font, self.counter.textData.transform, 
+                         self.counter.textData.limit, self.counter.textData.align)
 end
 
 
