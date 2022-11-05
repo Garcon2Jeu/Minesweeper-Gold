@@ -7,14 +7,14 @@ function MapDisplay:new(windowBox, topBar, leftBar)
     self.width    = windowBox.width - leftBar.width
     self.height   = windowBox.height - topBar.height
     self.center   = {x = self.width /2, y = self.height /2}
-
+    
     self.canvas = love.graphics.newCanvas(self.width, self.height)
     self.grid   = self:processGridData()
 end
     
 
 function MapDisplay:update(zoomPercentage)
-    self.updatedGrid = self:zoomGrid(zoomPercentage, self.grid)
+    self.zoomedGrid = self:zoomGrid(zoomPercentage, self.grid, self.draggedGrid)
 end
 
 
@@ -24,7 +24,6 @@ function MapDisplay:draw(gamePlay, map)
 
         --self:drawCenterLines()
         self:drawSquares(gamePlay, map)
-
         
     love.graphics.setCanvas()
     love.graphics.draw(self.canvas, self.x, self.y)
@@ -45,6 +44,7 @@ function MapDisplay:processGridData()
         grid.x        = self.center.x - grid.width /2
         grid.y        = self.center.y - grid.height /2
         grid.drawMode = "line"
+        grid.dragged  = {x = grid.x, y = grid.y}
         
     return grid
 end
@@ -62,18 +62,29 @@ function processSquareArea(width, height)
 end
 
 
-function MapDisplay:zoomGrid(zoomPercentage, grid)
-    local updatedGrid = {}
-        updatedGrid.width      = grid.width + zoomPercentage *4
-        updatedGrid.height     = grid.height + zoomPercentage *4
-        updatedGrid.x          = grid.x - updatedGrid.width /2 + grid.width /2
-        updatedGrid.y          = grid.y - updatedGrid.height /2 + grid.height /2
+function MapDisplay:zoomGrid(zoomPercentage, grid, draggedGrid)
+    local zoomedGrid = {}
+        zoomedGrid.width  = grid.width + zoomPercentage *10
+        zoomedGrid.height = grid.height + zoomPercentage *10
+        zoomedGrid.x      = grid.dragged.x - zoomedGrid.width /2 + grid.width /2
+        zoomedGrid.y      = grid.dragged.y - zoomedGrid.height /2 + grid.height /2
 
-        updatedGrid.squareArea = updatedGrid.width / map.columns
-        updatedGrid.spacer     = getNumberFromPercentage(updatedGrid.squareArea, 10)
-        updatedGrid.squareSize = updatedGrid.squareArea - updatedGrid.spacer
+        zoomedGrid.squareArea = zoomedGrid.width / map.columns
+        zoomedGrid.spacer     = getNumberFromPercentage(zoomedGrid.squareArea, 10)
+        zoomedGrid.squareSize = zoomedGrid.squareArea - zoomedGrid.spacer
 
-    return updatedGrid
+    return zoomedGrid
+end
+
+
+function MapDisplay:dragGrid(dx, dy)
+    if not isMouseOverMapDisplay() 
+    or not love.mouse.isDown(1) then 
+        return
+    end
+
+    self.grid.dragged.x = self.grid.dragged.x + dx
+    self.grid.dragged.y = self.grid.dragged.y + dy
 end
 
 
@@ -82,10 +93,10 @@ function MapDisplay:drawSquares(gamePlay, map)
         for column = 1, map.columns do
             local square = map.grid[row][column]
 
-            square.x        = self.updatedGrid.x + self.updatedGrid.squareArea * (column -1)
-            square.y        = self.updatedGrid.y + self.updatedGrid.squareArea * (row -1)
-            square.width    = self.updatedGrid.squareSize
-            square.height   = self.updatedGrid.squareSize
+            square.x        = self.zoomedGrid.x + self.zoomedGrid.squareArea * (column -1)
+            square.y        = self.zoomedGrid.y + self.zoomedGrid.squareArea * (row -1)
+            square.width    = self.zoomedGrid.squareSize
+            square.height   = self.zoomedGrid.squareSize
             square.textData = centerText(square.clue, FontBig, square)
 
             square:draw(ui, gamePlay)
@@ -99,6 +110,6 @@ function MapDisplay:drawCenterLines()
     love.graphics.line(self.center.x, 0, self.center.x, self.height)
     love.graphics.line(0, self.center.y, self.width, self.center.y)
 
-    love.graphics.rectangle("line", self.updatedGrid.x, self.updatedGrid.y, 
-                            self.updatedGrid.width, self.updatedGrid.height)
+    love.graphics.rectangle("line", self.zoomedGrid.x, self.zoomedGrid.y, 
+                            self.zoomedGrid.width, self.zoomedGrid.height)
 end

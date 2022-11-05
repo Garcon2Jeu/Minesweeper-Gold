@@ -39,7 +39,6 @@ function Ui:draw(gamePlay, map)
         self.leftBar:draw()
         self.mapDisplay:draw(gamePlay, map)
     end
-
 end
 
 

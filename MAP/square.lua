@@ -93,7 +93,8 @@ function Square:highlight()
             self.color = yellow
         end
 
-        if isMouseOverSquare(self) == false 
+        if not isMouseOverMapDisplay()
+        or not isMouseOverSquare(self) 
         or self.cleared then
             return
         end

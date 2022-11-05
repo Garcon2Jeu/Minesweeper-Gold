@@ -62,18 +62,23 @@ function isMouseOver(element)
 end
 
 
+function isMouseOverMapDisplay()
+    local mouse = getMousePosition()
+    
+    if  mouse.x > ui.mapDisplay.x 
+    and mouse.x < ui.mapDisplay.x + ui.mapDisplay.width
+    and mouse.y > ui.mapDisplay.y 
+    and mouse.y < ui.mapDisplay.y + ui.mapDisplay.height then 
+        return true
+    end
+
+    return false
+end
+
+
 function isMouseOverSquare(square)
     local mouse = getMousePosition()
 
-    -- Returns false if mouse is out of map display
-    if  mouse.x < ui.mapDisplay.x 
-    and mouse.x > ui.mapDisplay.x + ui.mapDisplay.width
-    and mouse.y < ui.mapDisplay.y 
-    and mouse.y > ui.mapDisplay.y + ui.mapDisplay.height then 
-        return false
-    end
-
-    -- Returns true if mouse is over square
     if  mouse.x - ui.mapDisplay.x > square.x 
     and mouse.x - ui.mapDisplay.x < square.x + square.width
     and mouse.y - ui.mapDisplay.y > square.y 

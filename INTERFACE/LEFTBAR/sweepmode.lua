@@ -16,8 +16,6 @@ function SweepMode:new(leftBar)
 end
 
 function SweepMode:update()
-    self.counter.left = gamePlay.sweepers.inventory.current
-
     self:highlight()
 end
 
