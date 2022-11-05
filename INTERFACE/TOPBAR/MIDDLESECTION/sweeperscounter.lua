@@ -1,46 +1,71 @@
 SweepersCounter = Object:extend()
 
 function SweepersCounter:new(topBar, middleSection)
-    self.x      = topBar.x.sweepersCounter
-    self.y      = topBar.y
-    self.width  = topBar.width.sweepersCounter
-    self.height = topBar.height
-    self.drawMode = "line"
-
-    self.name      = "SWEEPERS"
+    self.x         = topBar.x.sweepersCounter
+    self.y         = topBar.y
+    self.width     = topBar.width.sweepersCounter
+    self.height    = topBar.height
+    self.drawMode  = "line"
     self.color     = {filling = white, font = white}
-    self.transform = love.math.newTransform(self.x , (self.y + 4))
-    self.limit     = self.width
-    self.align     = "center"
+    
 
-    self.hasSeparators    = true
-    self.separators       = {}
-    self.separators.color = white
+    self.title = {}
+        self.title.x        = self.x
+        self.title.y        = self.y
+        self.title.width    = self.width
+        self.title.height   = getNumberFromPercentage(topBar.height, 30)
+        self.title.textData = centerText("SWEEPERS", FontSmall, self.title)
 
-    self.separators.title = {
-        x1 = self.x,
-        y1 = middleSection.separatorTitle_Y,
-        x2 = self.x + self.width,
-        y2 = middleSection.separatorTitle_Y
-    }
-    self.separators.data = {
-        x1 = self.x,
-        y1 = middleSection.separatorSweepers_Y ,
-        x2 = self.x + self.width,
-        y2 = middleSection.separatorSweepers_Y
-    }
+    self.progress = {}
+        self.progress.x       = self.x
+        self.progress.y       = self.title.y + self.title.height
+        self.progress.width   = getNumberFromPercentage(self.width, 80)
+        self.progress.height  = getNumberFromPercentage(topBar.height, 70)
+        self.progress.filling = 0
+
+    self.inventory = {}
+        self.inventory.x        = self.progress.x + self.progress.width
+        self.inventory.y        = self.progress.y
+        self.inventory.width    = getNumberFromPercentage(self.width, 20)
+        self.inventory.height   = getNumberFromPercentage(topBar.height, 70)
+        self.inventory.textData = centerText(self.available, FontBig, self.inventory)
+
 end
+
+
+function SweepersCounter:update()
+    self.progress.filling = self.progress.width / gamePlay.sweepers.progress.max * gamePlay.sweepers.progress.current
+    self.available = gamePlay.sweepers.inventory.current
+end
+
 
 function SweepersCounter:draw()
     love.graphics.setColor(self.color.filling)
-    love.graphics.rectangle(self.drawMode, self.x, self.y, self.width, self.height)
+    love.graphics.rectangle(self.drawMode, self.title.x, self.title.y, 
+                            self.title.width, self.title.height)
 
     love.graphics.setColor(self.color.font)
-    love.graphics.printf(self.name, FontTiny, self.transform, self.limit, self.align)
+    love.graphics.printf(self.title.textData.text, self.title.textData.font, 
+                         self.title.textData.transform, self.title.textData.limit, 
+                         self.title.textData.align)
 
-    love.graphics.setColor(self.separators.color)
-    love.graphics.line(self.separators.title.x1, self.separators.title.y1, self.separators.title.x2, self.separators.title.y2)
-    love.graphics.line(self.separators.data.x1, self.separators.data.y1, self.separators.data.x2, self.separators.data.y2)
+
+    love.graphics.setColor(self.color.filling)
+    love.graphics.rectangle(self.drawMode, self.progress.x, self.progress.y, 
+                            self.progress.width, self.progress.height)
+    love.graphics.setColor(self.color.font)
+    love.graphics.rectangle("fill", self.progress.x, self.progress.y, 
+                            self.progress.filling, self.progress.height)
+
+    
+    love.graphics.setColor(self.color.filling)
+    love.graphics.rectangle(self.drawMode, self.inventory.x, self.inventory.y, 
+                            self.inventory.width, self.inventory.height)
+
+    love.graphics.setColor(self.color.font)
+    love.graphics.printf(self.available, self.inventory.textData.font, 
+                         self.inventory.textData.transform, self.inventory.textData.limit, 
+                         self.inventory.textData.align)
 end
 
 
@@ -49,10 +74,8 @@ function SweepersCounter:highlight()
         self.drawMode         = "fill"
         self.color.font       = black
         self.color.filling    = white
-        self.separators.color = black
     else
         self.drawMode         = "line"
         self.color.font       = white
-        self.separators.color = white
     end
 end

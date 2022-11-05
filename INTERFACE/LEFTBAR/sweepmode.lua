@@ -9,17 +9,10 @@ function SweepMode:new(leftBar)
     self.color     = {filling = white, font = white}
 
     self.name      = {"SWEEP", "MODE"}
-    self.transform = {love.math.newTransform(self.x , self.y + (self.height /4) -5), 
-                      love.math.newTransform(self.x , self.y + (self.height /4) +15)}
+    self.transform = {love.math.newTransform(self.x , self.y + (self.height /4) +10), 
+                      love.math.newTransform(self.x , self.y + (self.height /4) +30)}
     self.limit     = self.width
     self.align     = "center"
-
-    self.counter = {
-        left = 0, 
-        transform = love.math.newTransform(self.x, self.y + (self.height /2 +10)),
-        limit     = self.width,
-        align     = "center",
-    }
 end
 
 function SweepMode:update()
@@ -36,9 +29,10 @@ function SweepMode:draw()
     love.graphics.setColor(self.color.font)
     love.graphics.printf(self.name[1], FontMedium, self.transform[1], self.limit, self.align)
     love.graphics.printf(self.name[2], FontBig, self.transform[2], self.limit, self.align)
-    love.graphics.printf("(" ..self.counter.left .." left)", FontTiny, self.counter.transform, self.counter.limit, self.counter.align)
-    love.graphics.setColor(white)
 end
+
+
+
 
 
 function SweepMode:onClick()

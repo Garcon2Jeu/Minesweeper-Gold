@@ -58,6 +58,12 @@ function Sweepers:onClick(square)
             square:clearEmptySquares(map, row, column)
         end
 
+        if square.isGolden then
+            ui.topBar.middleSection.goldCounter:update()
+        end
+
+        ui.topBar.middleSection.minesCounter:update(square)
+
         self:toggle()
     end
 end

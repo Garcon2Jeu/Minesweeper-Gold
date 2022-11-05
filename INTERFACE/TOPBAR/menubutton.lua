@@ -6,7 +6,7 @@ function MenuButton:new(topBar)
     self.width    = topBar.width.menuButton
     self.height   = topBar.height
     self.drawMode = "line"
-    self.color     = {filling = white, font = white}
+    self.color    = {filling = white, font = white}
     self.textData = centerText("MENU", FontBig, self)
 end
 

@@ -19,6 +19,7 @@ function Ui:update()
     self:highlightElements()
 
     self.topBar.menuButton:update()
+    self.topBar.middleSection.sweepersCounter:update()
     self.topBar.newGameButton:update()
 
     self.leftBar.zoom:update()
@@ -47,9 +48,9 @@ end
 
 function Ui:highlightElements()
     self:highlight(self.topBar.menuButton)
-    self.topBar.middleSection.minesCounter:highlight()
-    self.topBar.middleSection.goldCounter:highlight()
-    self.topBar.middleSection.sweepersCounter:highlight()
+    --self.topBar.middleSection.minesCounter:highlight()
+    --self.topBar.middleSection.goldCounter:highlight()
+    --self.topBar.middleSection.sweepersCounter:highlight()
     self.topBar.title:highlight()
     self:highlight(self.topBar.newGameButton)
 
