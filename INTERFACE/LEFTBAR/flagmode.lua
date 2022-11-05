@@ -13,13 +13,6 @@ function FlagMode:new(leftBar)
     self.transform = love.math.newTransform(self.x , self.y + (self.height /3))
     self.limit     = self.width
     self.align     = "center"
-
-    self.counter = {
-        left = 0, 
-        transform = love.math.newTransform(self.x, self.y + (self.height /2)),
-        limit     = self.width,
-        align     = "center",
-    }
 end
 
 function FlagMode:onClick()
@@ -34,7 +27,6 @@ function FlagMode:draw()
     
     love.graphics.setColor(self.color.font)
     love.graphics.printf(self.name, FontBig, self.transform, self.limit, self.align)
-    --love.graphics.printf("(" ..self.counter.left .." left)", FontTiny, self.counter.transform, self.counter.limit, self.counter.align)
 end
 
 
@@ -77,9 +69,4 @@ function FlagMode:highlight()
             self.color.filling = red
         end
     end
-
-
-
-    
-
 end

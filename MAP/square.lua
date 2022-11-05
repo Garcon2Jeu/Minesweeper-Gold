@@ -23,7 +23,7 @@ end
 function Square:update(gamePlay)
     self:highlight()
     self:revealSelf()
-    self:changeSquareColor(gamePlay)
+    self:changeColor(gamePlay)
 end
 
 
@@ -66,7 +66,7 @@ function Square:revealSelf()
 end
 
 
-function Square:changeSquareColor(gamePlay)    
+function Square:changeColor(gamePlay)    
     if gamePlay.play 
     or gamePlay.start then
         if self.swept then
@@ -76,9 +76,15 @@ function Square:changeSquareColor(gamePlay)
         end
 
         if self.flagged == true 
-        and gamePlay.play then 
+        and gamePlay.play 
+        and not self.cleared then 
             self.color = red
-            return
+        end
+
+        if gamePlay.sweepers.activated 
+        and self.isGolden 
+        and self.flagged then
+            self.color = yellow
         end
     end
 end
