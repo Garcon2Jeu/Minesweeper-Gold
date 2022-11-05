@@ -68,6 +68,8 @@ function love.keypressed(key)
     if key == "f" then
         ui.leftBar.flagMode:toggle()
     end
+
+    ui.mapDisplay:moveGrid(key)
 end
 
 

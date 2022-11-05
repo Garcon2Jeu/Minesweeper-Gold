@@ -87,6 +87,24 @@ function MapDisplay:dragGrid(dx, dy)
     self.grid.dragged.y = self.grid.dragged.y + dy
 end
 
+function MapDisplay:moveGrid(key)
+    if key == "up" then
+        self.grid.dragged.y = self.grid.dragged.y -50
+    end
+
+    if key == "down" then
+        self.grid.dragged.y = self.grid.dragged.y +50
+    end
+
+    if key == "left" then
+        self.grid.dragged.x = self.grid.dragged.x -50
+    end
+
+    if key == "right" then
+        self.grid.dragged.x = self.grid.dragged.x +50
+    end
+end
+
 
 function MapDisplay:drawSquares(gamePlay, map)
     for row = 1, map.rows do
