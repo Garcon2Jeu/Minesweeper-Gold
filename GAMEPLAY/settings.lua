@@ -27,7 +27,7 @@ function setMapData(seed)
 
         if seed.difficulty == "normal" then 
             mapData.mines    = 40
-            mapData.gold     = 40
+            mapData.gold     = 30
             mapData.sweepers = {inventoryMax = 99, progressMax  = 5} 
         end
 
