@@ -21,9 +21,9 @@ end
 
 
 function Square:update(gamePlay)
-    self:highlight()
     self:revealSelf()
     self:changeColor(gamePlay)
+    self:highlight()
 end
 
 
@@ -72,6 +72,8 @@ function Square:changeColor(gamePlay)
     and not gamePlay.start then
         return 
     end
+
+    self.color = white
     
     if self.swept then
         self.cleared = true
@@ -101,8 +103,6 @@ function Square:highlight()
     and not gamePlay.play then 
         return 
     end
-
-    self.color = white
 
     if not isMouseOverMapDisplay()
     or not isMouseOverSquare(self) 

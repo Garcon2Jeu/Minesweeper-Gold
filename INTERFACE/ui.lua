@@ -16,16 +16,17 @@ end
 
 
 function Ui:update()
-    self:highlightElements()
-
+    
     self.topBar.menuButton:update()
     self.topBar.dashBoard.sweepersCounter:update()
     self.topBar.newGameButton:update()
-
+    
     self.leftBar.zoom:update()
     self.leftBar.sweepMode:update()
-
+    
     self.mapDisplay:update(self.leftBar.zoom.zoomPercentage)
+    
+    self:highlightElements()
 end
 
 
