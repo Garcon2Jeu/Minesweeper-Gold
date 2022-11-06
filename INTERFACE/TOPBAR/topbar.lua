@@ -1,5 +1,5 @@
 require "/INTERFACE/TOPBAR/menubutton"
-require "/INTERFACE/TOPBAR/MIDDLESECTION/middlesection"
+require "/INTERFACE/TOPBAR/DASHBOARD/dashboard"
 require "/INTERFACE/TOPBAR/newgamebutton"
 require "/INTERFACE/TOPBAR/title"
 
@@ -12,7 +12,7 @@ function TopBar:new(windowBox)
     self.y      = windowBox.y
     
     self.menuButton    = MenuButton(self)
-    self.middleSection = MiddleSection(self)
+    self.dashBoard     = DashBoard(self)
     self.title         = Title(self)
     self.newGameButton = NewGameButton(self)
 end
@@ -24,8 +24,10 @@ function TopBar:draw(menuScreen)
     if gamePlay.start 
     or gamePlay.paused then
         self.title:draw()
+    --elseif gameplay.over then 
+        --self.scoreBoard:draw()
     else
-        self.middleSection:draw()
+        self.dashBoard:draw()
     end
 
     self.newGameButton:draw()

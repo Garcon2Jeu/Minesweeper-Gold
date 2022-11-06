@@ -41,27 +41,26 @@ end
 
 
 function SweepMode:highlight()
-    if isMouseOver(self) then
+    self.drawMode      = "line"
+    self.color.font    = white
+    self.color.filling = white
+    
+    if gamePlay.sweepers.activated then
         self.drawMode      = "fill"
-        self.color.font    = purple
-        self.color.filling = white
-
-        if gamePlay.sweepers.activated then
-            self.color.font    = white
-            self.color.filling = purple
-        else
-            self.color.font    = purple
-            self.color.filling = white
-        end
-    else
-        self.drawMode      = "line"
         self.color.font    = white
-        self.color.filling = white
-        
-        if gamePlay.sweepers.activated then
-            self.drawMode      = "fill"
-            self.color.font    = white
-            self.color.filling = purple
-        end
+        self.color.filling = purple
+    end
+
+    if not isMouseOver(self) then
+        return
+    end
+
+    self.drawMode      = "fill"
+    self.color.font    = purple
+    self.color.filling = white
+
+    if gamePlay.sweepers.activated then
+        self.color.font    = white
+        self.color.filling = purple
     end
 end

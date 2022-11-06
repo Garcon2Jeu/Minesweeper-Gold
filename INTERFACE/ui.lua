@@ -19,7 +19,7 @@ function Ui:update()
     self:highlightElements()
 
     self.topBar.menuButton:update()
-    self.topBar.middleSection.sweepersCounter:update()
+    self.topBar.dashBoard.sweepersCounter:update()
     self.topBar.newGameButton:update()
 
     self.leftBar.zoom:update()
@@ -47,9 +47,9 @@ end
 
 function Ui:highlightElements()
     self:highlight(self.topBar.menuButton)
-    --self.topBar.middleSection.minesCounter:highlight()
-    --self.topBar.middleSection.goldCounter:highlight()
-    --self.topBar.middleSection.sweepersCounter:highlight()
+    --self.topBar.dashBoard.minesCounter:highlight()
+    --self.topBar.dashBoard.goldCounter:highlight()
+    --self.topBar.dashBoard.sweepersCounter:highlight()
     self.topBar.title:highlight()
     self:highlight(self.topBar.newGameButton)
 
@@ -84,9 +84,9 @@ end
 
 function Ui:onClick()
     self.topBar.menuButton:onClick()
-    --self.topBar.middleSection.minesCounter:onClick()
-    --self.topBar.middleSection.goldCounter:onClick()
-    --self.topBar.middleSection.sweepersCounter:onClick()
+    --self.topBar.dashBoard.minesCounter:onClick()
+    --self.topBar.dashBoard.goldCounter:onClick()
+    --self.topBar.dashBoard.sweepersCounter:onClick()
     self.topBar.newGameButton:onClick()
     --self.topBar.title:onClick()
 

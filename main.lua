@@ -14,7 +14,7 @@ function love.load()
     map      = Map(gamePlay)
     ui       = Ui()
 
-    debug = Debug(ui, false)
+    debug = Debug(ui, true)
 end
 
 function love.update()

@@ -69,6 +69,9 @@ function SweepersCounter:draw()
 end
 
 
+
+
+
 function SweepersCounter:highlight()
     if isMouseOver(self) then 
         self.drawMode         = "fill"

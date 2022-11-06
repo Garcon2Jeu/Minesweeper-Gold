@@ -110,7 +110,6 @@ function Zoom:drag()
 end
 
 
-
 function Zoom:limitCursorPostition()
     if self.cursor.y < self.stopper1.y1 then
         self.cursor.y = self.stopper1.y1

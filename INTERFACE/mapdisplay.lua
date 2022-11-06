@@ -87,6 +87,7 @@ function MapDisplay:dragGrid(dx, dy)
     self.grid.dragged.y = self.grid.dragged.y + dy
 end
 
+
 function MapDisplay:moveGrid(key)
     if key == "up" then
         self.grid.dragged.y = self.grid.dragged.y -50

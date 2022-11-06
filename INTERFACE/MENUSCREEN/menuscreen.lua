@@ -55,7 +55,7 @@ end
 
 function MenuScreen:processContainersY()
     local y = {}
-    y.presetsCustom = 0
+        y.presetsCustom = 0
         y.mapSize       = y.presetsCustom + self.containers.height.presetsCustom
         y.difficulty    = y.mapSize + self.containers.height.mapSize
         y.gameMode      = y.difficulty + self.containers.height.difficulty
@@ -83,6 +83,8 @@ function MenuScreen:highlight(container)
         container.color.font    = white
     end
 end
+
+
 
 
 

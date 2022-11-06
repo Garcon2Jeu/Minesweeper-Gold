@@ -47,23 +47,24 @@ end
 
 
 function Sweepers:onClick(square)
-    if  self.activated 
-    and self.inventory.current > 0 
-    and square.cleared == false then
-
-        self.inventory.current = self.inventory.current -1
-        square.swept           = true
-
-        if square.clue == 0 then 
-            square:clearEmptySquares(map, row, column)
-        end
-
-        if square.isGolden then
-            ui.topBar.middleSection.goldCounter:update()
-        end
-
-        ui.topBar.middleSection.minesCounter:update(square)
-
-        self:toggle()
+    if not self.activated 
+    or self.inventory.current == 0 
+    or square.cleared then
+        return
     end
+
+    self.inventory.current = self.inventory.current -1
+    square.swept           = true
+
+    if square.clue == 0 then 
+        square:clearEmptySquares(map, row, column)
+    end
+
+    if square.isGolden then
+        ui.topBar.dashBoard.goldCounter:update()
+    end
+
+    ui.topBar.dashBoard.minesCounter:update(square)
+
+    self:toggle()
 end

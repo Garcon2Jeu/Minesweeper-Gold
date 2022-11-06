@@ -59,14 +59,12 @@ function GamePlay:onClick(map, button)
                     return
                 end
 
-                if button == 1 then 
-                    if gamePlay.start then
-                        gamePlay:startGame(map, square)
-                    end
+                if gamePlay.start then
+                    gamePlay:startGame(map, square)
+                end
 
-                    if gamePlay.play then
-                        gamePlay:leftClick(square, gamePlay, map, row, column)
-                    end
+                if gamePlay.play then
+                    gamePlay:leftClick(square, gamePlay, map, row, column)
                 end
             end 
         end
@@ -98,7 +96,7 @@ function GamePlay:rightClick(gamePlay, square)
         else
             square.flagged = false
         end
-        ui.topBar.middleSection.minesCounter:update(square)
+        ui.topBar.dashBoard.minesCounter:update(square)
         ui.leftBar.flagMode.activated = false
     end
 end

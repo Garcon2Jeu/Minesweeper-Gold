@@ -15,18 +15,22 @@ function FlagMode:new(leftBar)
     self.align     = "center"
 end
 
-function FlagMode:onClick()
-    if isMouseOver(self) then
-        self:toggle()
-    end
-end
-
 function FlagMode:draw()
     love.graphics.setColor(self.color.filling)
     love.graphics.rectangle(self.drawMode, self.x, self.y, self.width, self.height)
     
     love.graphics.setColor(self.color.font)
     love.graphics.printf(self.name, FontBig, self.transform, self.limit, self.align)
+end
+
+
+
+
+
+function FlagMode:onClick()
+    if isMouseOver(self) then
+        self:toggle()
+    end
 end
 
 
@@ -46,27 +50,26 @@ end
 
 
 function FlagMode:highlight()
-    if isMouseOver(self) then
+    self.drawMode      = "line"
+    self.color.font    = white
+    self.color.filling = white
+    
+    if self.activated then
         self.drawMode      = "fill"
-        self.color.font    = red
-        self.color.filling = white
-
-        if self.activated then
-            self.color.font    = white
-            self.color.filling = red
-        else
-            self.color.font    = red
-            self.color.filling = white
-        end
-    else
-        self.drawMode      = "line"
         self.color.font    = white
-        self.color.filling = white
-        
-        if self.activated then
-            self.drawMode      = "fill"
-            self.color.font    = white
-            self.color.filling = red
-        end
+        self.color.filling = red
+    end
+    
+    if not isMouseOver(self) then
+        return
+    end
+
+    self.drawMode      = "fill"
+    self.color.font    = red
+    self.color.filling = white
+    
+    if self.activated then
+        self.color.font    = white
+        self.color.filling = red
     end
 end

@@ -50,12 +50,14 @@ function Map:plantMines()
             for column = 1, self.columns do
                 local square = self.grid[row][column]
                 
-                if square.isMine == false 
-                and square.firstClicked == false
-                and square:isSurroundingSquareFirstClicked(self, row, column) == false then
+                if not square.isMine 
+                and not square.firstClicked
+                and not square:isSurroundingSquareFirstClicked(self, row, column) then
                     if minesCounter >= self.mines then
                         return
-                    elseif love.math.random(1, self.totalSquares) == 1 then
+                    end
+
+                    if love.math.random(1, self.totalSquares) == 1 then
                         square.isMine = true
                         minesCounter = minesCounter +1
                         square:processSurroundingSquaresClues(self, row, column)
@@ -75,12 +77,15 @@ function Map:plantGold()
             for column = 1, self.columns do
                 local square = self.grid[row][column]
                 
-                if square.isGolden == false
-                and square.firstClicked == false
-                and square:isSurroundingSquareFirstClicked(self, row, column) == false then
-                    if goldCounter >= self.gold then 
+                if not square.isGolden
+                and not square.firstClicked
+                and not square:isSurroundingSquareFirstClicked(self, row, column) then
+                    
+                    if goldCounter >= self.gold then
                         return
-                    elseif love.math.random(1, self.totalSquares) == 1 then
+                    end
+                    
+                    if love.math.random(1, self.totalSquares) == 1 then
                         square.isGolden = true
                         goldCounter = goldCounter +1
                     end

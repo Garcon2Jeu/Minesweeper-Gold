@@ -45,75 +45,79 @@ end
 
 
 function Square:onClick(gamePlay, map, row, column)
-    if  self.flagged                == false 
-    and self.cleared                == false
-    and self.isGolden               == false 
-    and gamePlay.sweepers.activated == false then 
-
-        if self.isMine then
-            gamePlay:update("over")
-        end
-
-        self:clearEmptySquares(map, row, column)
+    if self.flagged                
+    or self.cleared               
+    or self.isGolden               
+    or gamePlay.sweepers.activated then 
+        return
     end
+
+    if self.isMine then
+        gamePlay:update("over")
+    end
+
+    self:clearEmptySquares(map, row, column)
 end
 
 
 function Square:revealSelf()
-    if self.cleared == true then
+    if self.cleared then
         self.drawMode = "line"
     end
 end
 
 
 function Square:changeColor(gamePlay)    
-    if gamePlay.play 
-    or gamePlay.start then
-        if self.swept then
-            self.cleared = true
-            self.color   = purple
-            return
-        end
+    if not gamePlay.play 
+    and not gamePlay.start then
+        return 
+    end
+    
+    if self.swept then
+        self.cleared = true
+        self.color   = purple
+        return
+    end
+    
+    if self.isGolden then
+        self.color = yellow
+    end
 
-        if self.flagged == true 
-        and gamePlay.play 
-        and not self.cleared then 
-            self.color = red
-        end
+    if self.flagged
+    and not self.cleared then 
+        self.color = red
+    end
 
-        if gamePlay.sweepers.activated 
-        and self.isGolden 
-        and self.flagged then
-            self.color = yellow
-        end
+    if gamePlay.sweepers.activated 
+    and self.isGolden 
+    and self.flagged then
+        self.color = yellow
     end
 end
 
 
 function Square:highlight()
-    if gamePlay.start 
-    or gamePlay.play then  
-        self.color = white
+    if not gamePlay.start 
+    and not gamePlay.play then 
+        return 
+    end
 
-        if self.isGolden then 
-            self.color = yellow
-        end
+    self.color = white
 
-        if not isMouseOverMapDisplay()
-        or not isMouseOverSquare(self) 
-        or self.cleared then
-            return
-        end
+    if not isMouseOverMapDisplay()
+    or not isMouseOverSquare(self) 
+    or self.cleared then
+        return
+    end
 
-        self.color = grey
+    self.color = grey
 
-        if gamePlay.sweepers.activated then
-            self.color = purple
-        end
-        
-        if ui.leftBar.flagMode.activated then
-            self.color = red
-        end
+    if gamePlay.sweepers.activated then
+        self.color = purple
+    end
+    
+    if ui.leftBar.flagMode.activated then
+        self.color = red
     end
 end
 
@@ -156,28 +160,29 @@ function Square:clearEmptySquares(map, row, column)
         return
     end
 
-    if gamePlay.play then
-        gamePlay.sweepers:update()
-    end
+    gamePlay.sweepers:update()
     
-    if self.clue == 0 then
-        for i = row -1, row +1 do 
-            for j = column -1, column +1 do
-                if isSquareReal(map, i, j)
-                and map.grid[i][j] ~= self
-                and map.grid[i][j].cleared == false then
-                    local surroundingSquare = map.grid[i][j]
-                    
-                    if surroundingSquare.clue > 0 then
-                        surroundingSquare.cleared = true
-                        gamePlay.sweepers:update()
-                    else
-                        surroundingSquare:clearEmptySquares(map, i, j)
-                    end
+    if self.clue > 0 then
+        return
+    end
 
-                    if surroundingSquare.isGolden then
-                        surroundingSquare.cleared = false
-                    end
+    for i = row -1, row +1 do 
+        for j = column -1, column +1 do
+
+            if isSquareReal(map, i, j)
+            and map.grid[i][j] ~= self
+            and not map.grid[i][j].cleared then
+                local surroundingSquare = map.grid[i][j]
+                
+                if surroundingSquare.clue == 0 then
+                    surroundingSquare:clearEmptySquares(map, i, j)
+                else
+                    surroundingSquare.cleared = true
+                    gamePlay.sweepers:update()
+                end
+                
+                if surroundingSquare.isGolden then
+                    surroundingSquare.cleared = false
                 end
             end
         end
