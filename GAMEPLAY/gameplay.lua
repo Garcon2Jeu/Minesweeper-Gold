@@ -103,41 +103,60 @@ end
 
 
 function GamePlay:endGame(map)
-    scoreCount = 0
+    score = {
+        squaresCleared = 0,
+        minesFlagged   = 0,
+        minesSwept     = 0,
+        goldSwept      = 0
+    }
     
     for i = 1, map.rows do 
         for j = 1, map.columns do
             local square = map.grid[i][j]
-            
-            if square.isMine then
-                if square.flagged then
-                    square.color = blue
-                    scoreCount = scoreCount +1
-                else
-                    square.color = red
-                end
+        
+            if square.cleared then 
+                score.squaresCleared = score.squaresCleared +1
+                square.color = green
             else
-                if square.cleared then
-                    square.color = green
-                    scoreCount = scoreCount +1
-                else
-                    square.color = orange
-                end
+                square.color = orange
+            end
+            
+            if square.isGolden 
+            and square.swept then
+                score.goldSwept = score.goldSwept +1
+            end
                 
-                if square.flagged then
-                    square.color = red
-                end
+            if square.flagged then
+                square.color = red
             end
 
             if square.swept then
                 square.color = purple
             end
+
+            if square.isMine then
+                if square.flagged then
+                    score.minesFlagged = score.minesFlagged +1
+                    square.color = blue
+                else 
+                    square.color = red
+                end
+                
+                if square.swept then
+                    score.minesSwept = score.minesSwept +1
+                    square.color = purple
+                end
+            end
+
+
             square.cleared = true
         end
     end
 
-    finalScore = 100 / map.totalSquares * scoreCount
-    print("Final Score: ".. finalScore .."%")
+    print("Total squares cleared      = " .. score.squaresCleared)
+    print("Total mines flagged        = " .. score.minesFlagged)
+    print("Total mines swept          = " .. score.minesSwept)
+    print("Total gold squares cleared = " .. score.goldSwept)
 end
 
 

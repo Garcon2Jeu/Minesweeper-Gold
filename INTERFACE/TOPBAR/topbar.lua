@@ -1,7 +1,8 @@
 require "/INTERFACE/TOPBAR/menubutton"
 require "/INTERFACE/TOPBAR/DASHBOARD/dashboard"
-require "/INTERFACE/TOPBAR/newgamebutton"
 require "/INTERFACE/TOPBAR/title"
+require "/INTERFACE/TOPBAR/scoreboard"
+require "/INTERFACE/TOPBAR/newgamebutton"
 
 TopBar = Object:extend()
 
@@ -12,8 +13,9 @@ function TopBar:new(windowBox)
     self.y      = windowBox.y
     
     self.menuButton    = MenuButton(self)
-    self.dashBoard     = DashBoard(self)
     self.title         = Title(self)
+    self.dashBoard     = DashBoard(self)
+    self.scoreBoard    = ScoreBoard(self)
     self.newGameButton = NewGameButton(self)
 end
 
@@ -24,8 +26,8 @@ function TopBar:draw(menuScreen)
     if gamePlay.start 
     or gamePlay.paused then
         self.title:draw()
-    --elseif gameplay.over then 
-        --self.scoreBoard:draw()
+    elseif gamePlay.over then 
+        self.scoreBoard:draw()
     else
         self.dashBoard:draw()
     end
@@ -46,6 +48,7 @@ function TopBar:processTopBarElementsWidths(windowBox)
     width.sweepersCounter = getNumberFromPercentage(windowBox.width, 60)
     width.newGameButton   = getNumberFromPercentage(windowBox.width, 10)
     width.title           = getNumberFromPercentage(windowBox.width, 80)
+    width.scoreBoard      = getNumberFromPercentage(windowBox.width, 80)
 
     return width
 end
@@ -59,6 +62,7 @@ function TopBar:processTopBarElementsX(windowBox)
     x.sweepersCounter = x.goldCounter + self.width.goldCounter
     x.newGameButton   = x.sweepersCounter + self.width.sweepersCounter
     x.title           = x.menuButton + self.width.menuButton
+    x.scoreBoard      = x.menuButton + self.width.menuButton
 
     return x
 end

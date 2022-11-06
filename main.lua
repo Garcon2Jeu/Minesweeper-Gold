@@ -8,7 +8,7 @@ require "/DEBUG/debug"
 
 
 function love.load()
-    local seed = {size = "medium", difficulty = "normal"}
+    local seed = {size = "small", difficulty = "easy"}
 
     gamePlay = GamePlay(seed)
     map      = Map(gamePlay)
