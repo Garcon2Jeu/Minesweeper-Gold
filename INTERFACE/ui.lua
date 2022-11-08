@@ -25,7 +25,7 @@ function Ui:update()
     self.leftBar.sweepMode:update()
     
     self.mapDisplay:update(self.leftBar.zoom.zoomPercentage)
-    
+
     self:highlightElements()
 end
 
@@ -83,7 +83,7 @@ function Ui:highlight(element)
 end
 
 
-function Ui:onClick()
+function Ui:onClick(button)
     self.topBar.menuButton:onClick()
     --self.topBar.dashBoard.minesCounter:onClick()
     --self.topBar.dashBoard.goldCounter:onClick()
@@ -94,4 +94,6 @@ function Ui:onClick()
     --self.leftBar.zoom:onClick()
     self.leftBar.flagMode:onClick()
     self.leftBar.sweepMode:onClick()
+
+    self.menuScreen:onClick(button)
 end

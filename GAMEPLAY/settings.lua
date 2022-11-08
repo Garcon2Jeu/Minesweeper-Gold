@@ -1,16 +1,16 @@
 function setMapData(seed)
     mapData = {}
-        if seed.size == "small" then
+        if seed.mapSize == "small" then
             mapData.rows         = 9
             mapData.columns      = 9
         end
 
-        if seed.size == "medium" then
+        if seed.mapSize == "medium" then
             mapData.rows         = 16
             mapData.columns      = 16
         end
 
-        if seed.size == "big" then
+        if seed.mapSize == "big" then
             mapData.rows         = 30
             mapData.columns      = 16
         end
@@ -35,6 +35,12 @@ function setMapData(seed)
             mapData.mines    = 99
             mapData.gold     = 20
             mapData.sweepers = {inventoryMax = 2, progressMax  = 10} 
+        end
+
+        
+        if seed.gameMode == "classic" then
+            mapData.gold     = 0
+            mapData.sweepers = {inventoryMax = 0, progressMax  = 999} 
         end
 
     return mapData

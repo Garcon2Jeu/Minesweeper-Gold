@@ -73,6 +73,8 @@ function Square:changeColor(gamePlay)
         return 
     end
 
+    self.color = white
+
     if self.swept then
         self.cleared = true
         self.color   = purple
@@ -81,23 +83,18 @@ function Square:changeColor(gamePlay)
     
     if self.isGolden then
         self.color = yellow
-        return
     end
     
     if self.flagged
     and not self.cleared then 
         self.color = red
-        return
     end
     
     if gamePlay.sweepers.activated 
     and self.isGolden 
     and self.flagged then
         self.color = yellow
-        return
     end
-
-    self.color = white
 end
 
 

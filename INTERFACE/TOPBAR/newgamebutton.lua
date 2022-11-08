@@ -40,7 +40,10 @@ function NewGameButton:onClick()
 
     if gamePlay.play then 
         gamePlay:update("over")
-    elseif gamePlay.over then
+    end
+    
+    if gamePlay.over 
+    or gamePlay.paused then
         gamePlay:update("new")
     end
 end
