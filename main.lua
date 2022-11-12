@@ -7,9 +7,9 @@ require "/MAP/map"
 require "/DEBUG/debug"
 
 
-function love.load()
-    local seed = {size = "small", difficulty = "easy"}
+seed = {presetsCustom = "presets", mapSize = "small", difficulty = "easy", gameMode = "gold"}
 
+function love.load()
     gamePlay = GamePlay(seed)
     map      = Map(gamePlay)
     ui       = Ui()
@@ -74,7 +74,7 @@ end
 
 
 function love.mousepressed(x, y, button, isTouch)
-    ui:onClick()
+    ui:onClick(button)
     gamePlay:onClick(map, button)
 
     debug:onClick()

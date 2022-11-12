@@ -21,9 +21,9 @@ end
 
 
 function Square:update(gamePlay)
-    self:highlight()
     self:revealSelf()
     self:changeColor(gamePlay)
+    self:highlight()
 end
 
 
@@ -72,7 +72,9 @@ function Square:changeColor(gamePlay)
     and not gamePlay.start then
         return 
     end
-    
+
+    self.color = white
+
     if self.swept then
         self.cleared = true
         self.color   = purple
@@ -82,12 +84,12 @@ function Square:changeColor(gamePlay)
     if self.isGolden then
         self.color = yellow
     end
-
+    
     if self.flagged
     and not self.cleared then 
         self.color = red
     end
-
+    
     if gamePlay.sweepers.activated 
     and self.isGolden 
     and self.flagged then
@@ -101,24 +103,29 @@ function Square:highlight()
     and not gamePlay.play then 
         return 
     end
-
-    self.color = white
-
+    
     if not isMouseOverMapDisplay()
     or not isMouseOverSquare(self) 
     or self.cleared then
         return
     end
-
-    self.color = grey
-
+    
     if gamePlay.sweepers.activated then
         self.color = purple
+        return
     end
     
     if ui.leftBar.flagMode.activated then
         self.color = red
+        return
     end
+    
+    if self.isGolden 
+    or self.flagged then 
+        return
+    end
+
+    self.color = grey
 end
 
 
