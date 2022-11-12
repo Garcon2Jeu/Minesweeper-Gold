@@ -63,12 +63,20 @@ end
 
 
 function MapDisplay:zoomGrid(zoomPercentage, grid, draggedGrid)
+    if gamePlay.over then
+        zoomPercentage = 0
+    end
+
+    if zoomPercentage == 0 then
+        grid.dragged.x = self.center.x - grid.width /2
+        grid.dragged.y = self.center.y - grid.height /2
+    end
+    
     local zoomedGrid = {}
         zoomedGrid.width  = grid.width + zoomPercentage *10
         zoomedGrid.height = grid.height + zoomPercentage *10
         zoomedGrid.x      = grid.dragged.x - zoomedGrid.width /2 + grid.width /2
         zoomedGrid.y      = grid.dragged.y - zoomedGrid.height /2 + grid.height /2
-
         zoomedGrid.squareArea = zoomedGrid.width / map.columns
         zoomedGrid.spacer     = getNumberFromPercentage(zoomedGrid.squareArea, 10)
         zoomedGrid.squareSize = zoomedGrid.squareArea - zoomedGrid.spacer
