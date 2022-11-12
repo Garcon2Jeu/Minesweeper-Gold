@@ -37,13 +37,13 @@ function NewGameButton:onClick()
     if not isMouseOver(self) then
         return
     end
-
-    if gamePlay.play then 
-        gamePlay:update("over")
-    end
     
     if gamePlay.over 
     or gamePlay.paused then
         gamePlay:update("new")
+    end
+
+    if gamePlay.play then 
+        gamePlay:update("over")
     end
 end
