@@ -35,17 +35,32 @@ end
 
 
 function FlagMode:toggle()
-    if gamePlay.sweepers.activated then
-        gamePlay.sweepers.activated = false 
+    if not gamePlay.play then
+        return
     end
+
+    gamePlay.sweepers.activated = false 
     
-    if gamePlay.play then
-        if self.activated then
-            self.activated = false
-        else
-            self.activated = true
-        end
+    if self.activated then
+        self.activated = false
+        --print(false)
+        return
     end
+
+    self.activated = true
+    --print(true)
+end
+
+
+function FlagMode:flag(square)
+    if square.flagged then
+        square.flagged = false
+    else
+        square.flagged = true
+    end
+
+    ui.topBar.dashBoard.minesCounter:update(square)
+    ui.leftBar.flagMode:toggle()
 end
 
 

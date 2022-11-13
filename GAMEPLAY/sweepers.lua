@@ -19,9 +19,7 @@ end
 
 
 function Sweepers:toggle()
-    if ui.leftBar.flagMode.activated then
-        ui.leftBar.flagMode.activated = false
-    end
+    ui.leftBar.flagMode.activated = false
 
     if self.activated then 
         self.activated = false
@@ -62,6 +60,10 @@ function Sweepers:onClick(square)
 
     if square.isGolden then
         ui.topBar.dashBoard.goldCounter:update()
+
+        --if square.flagged then
+            --square.flagged = false
+        --end
     end
 
     ui.topBar.dashBoard.minesCounter:update(square)
