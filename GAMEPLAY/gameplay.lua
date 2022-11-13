@@ -169,16 +169,5 @@ function GamePlay:endGame(map, result)
     end
     score.exploration = score.exploration .."%"
 
-    print("Squares Cleared = " ..score.squares.cleared)
-    print("Squares Missed  = " ..score.squares.missed)
-    print("Mines Flagged   = " ..score.mines.flagged)
-    print("Mines Swept     = " ..score.mines.swept)
-    print("Mines Missed    = " ..score.mines.missed)
-    print("Gold Swept      = " ..score.gold.swept)
-    print("Gold Missed     = " ..score.gold.missed)
-    print("Time            = " ..score.time .." seconds")
-    print("Exploration     = " ..score.exploration .."%")
-    print("Final Score     = " ..score.final .."%")
-
     ui.topBar.scoreBoard:update(score)
 end

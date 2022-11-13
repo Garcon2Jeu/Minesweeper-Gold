@@ -72,6 +72,7 @@ function ScoreBoard:draw()
                             self.containers.width, self.containers.height)
 
 
+    love.graphics.setColor(self.color.font)
     love.graphics.printf(self.mines.title.text, self.mines.title.font, self.mines.title.transform, 
                          self.mines.title.limit, self.mines.title.align)
     love.graphics.printf(self.mines.flagged.text .. self.score.mines.flagged, self.mines.flagged.font, self.mines.flagged.transform, 
@@ -104,6 +105,8 @@ function ScoreBoard:draw()
                          self.final.time.limit, self.final.time.align)
     love.graphics.printf(self.final.explo.text ..self.score.explo, self.final.explo.font, self.final.explo.transform, 
                          self.final.explo.limit, self.final.explo.align)
+
+    love.graphics.setColor(yellow)
     love.graphics.printf(self.final.final.text ..self.score.final, self.final.final.font, self.final.final.transform, 
                          self.final.final.limit, self.final.final.align)
 end
