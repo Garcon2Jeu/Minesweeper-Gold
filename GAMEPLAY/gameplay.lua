@@ -159,13 +159,15 @@ function GamePlay:endGame(map, result)
         end
     end
 
+    score.time        = math.floor(love.timer.getTime() - self.time) .." seconds"
+    
     score.exploration = math.floor(getPercentageFromNumber(mapData.totalSquares, score.squares.cleared))
-    score.time        = math.floor(love.timer.getTime() - self.time)
-    score.final       = score.exploration
-
     if result == "lost" then
-        score.final = score.final /2
+        score.final = score.exploration /2 .."%"
+    else
+        score.final = score.exploration .."%"
     end
+    score.exploration = score.exploration .."%"
 
     print("Squares Cleared = " ..score.squares.cleared)
     print("Squares Missed  = " ..score.squares.missed)
