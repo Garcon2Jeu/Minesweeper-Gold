@@ -42,16 +42,12 @@ end
 function MinesCounter:draw()
     love.graphics.setColor(self.color.filling)
     love.graphics.rectangle(self.drawMode, self.title.x, self.title.y, self.title.width, self.title.height)
+    love.graphics.rectangle(self.drawMode, self.counter.x, self.counter.y, self.counter.width, self.counter.height)
     
     love.graphics.setColor(self.color.font)
     love.graphics.printf(self.title.textData.text, self.title.textData.font, self.title.textData.transform, 
                          self.title.textData.limit, self.title.textData.align)
 
-    
-    love.graphics.setColor(self.color.filling)
-    love.graphics.rectangle(self.drawMode, self.counter.x, self.counter.y, self.counter.width, self.counter.height)
-
-    love.graphics.setColor(self.color.font)
     love.graphics.printf(self.remaining, self.counter.textData.font, self.counter.textData.transform, 
                          self.counter.textData.limit, self.counter.textData.align)
 end

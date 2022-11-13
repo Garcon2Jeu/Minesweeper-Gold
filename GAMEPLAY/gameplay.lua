@@ -14,7 +14,7 @@ function GamePlay:new(seed)
 end
 
 
-function GamePlay:update(status)
+function GamePlay:update(status, result)
     if status == "start" then 
         self.start  = true
         self.play   = false
@@ -36,7 +36,7 @@ function GamePlay:update(status)
         --self.paused = false
         self.over   = true
 
-        self:endGame(map)
+        self:endGame(map, result)
     elseif status == "new" then 
         love.load()
     end
@@ -109,7 +109,7 @@ function GamePlay:rightClick(gamePlay, square)
 end
 
 
-function GamePlay:endGame(map)
+function GamePlay:endGame(map, result)
     score = {}
         score.squares = {cleared = 0, missed = 0}
         score.mines   = {flagged = 0, swept = 0, missed = 0}
@@ -161,7 +161,11 @@ function GamePlay:endGame(map)
 
     score.exploration = math.floor(getPercentageFromNumber(mapData.totalSquares, score.squares.cleared))
     score.time        = math.floor(love.timer.getTime() - self.time)
-    --score.final       = self:processFinalScore(score)
+    score.final       = score.exploration
+
+    if result == "lost" then
+        score.final = score.final /2
+    end
 
     print("Squares Cleared = " ..score.squares.cleared)
     print("Squares Missed  = " ..score.squares.missed)
@@ -170,8 +174,9 @@ function GamePlay:endGame(map)
     print("Mines Missed    = " ..score.mines.missed)
     print("Gold Swept      = " ..score.gold.swept)
     print("Gold Missed     = " ..score.gold.missed)
-    print("Exploration     = " ..score.exploration .."%")
     print("Time            = " ..score.time .." seconds")
+    print("Exploration     = " ..score.exploration .."%")
+    print("Final Score     = " ..score.final .."%")
 
     ui.topBar.scoreBoard:update(score)
 end

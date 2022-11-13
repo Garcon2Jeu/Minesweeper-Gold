@@ -44,6 +44,6 @@ function NewGameButton:onClick()
     end
 
     if gamePlay.play then 
-        gamePlay:update("over")
+        gamePlay:update("over", "won")
     end
 end

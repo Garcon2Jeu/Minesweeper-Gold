@@ -53,7 +53,7 @@ function Square:onClick(gamePlay, map, row, column)
     end
 
     if self.isMine then
-        gamePlay:update("over")
+        gamePlay:update("over", "lost")
     end
 
     self:clearEmptySquares(map, row, column)

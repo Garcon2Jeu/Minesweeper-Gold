@@ -1,9 +1,16 @@
 Object = require "/LIBS/classic"
 
 
+
+
+
 WINDOW = {}
 WINDOW.width = love.graphics.getWidth()
 WINDOW.height = love.graphics.getHeight()
+
+
+
+
 
 FontHuge = love.graphics.newFont("/ASSETS/RetroGaming.ttf", 50)
 FontHuge:setFilter( "nearest", "nearest" )
@@ -26,6 +33,22 @@ yellow = {255/255,255/255,0}
 orange = {255/255, 128/255, 0}
 grey   = {100/255, 100/255, 100/255}
 purple = {191/255, 64/255, 191/255}
+
+
+function centerText(text, font, container)
+    textData = {}
+        textData.text      = text
+        textData.font      = font
+        textData.transform = love.math.newTransform(container.x, 
+                             container.y + container.height /2 - font:getHeight() /2)
+        textData.limit     = container.width
+        textData.align     = "center"
+
+    return textData
+end
+
+
+
 
 
 function getNumberFromPercentage(value, targetPercent)
@@ -113,6 +136,9 @@ function isMouseOverMenuScreen(container)
 end
 
 
+
+
+
 function isSquareReal(map, row, column)
     if  row    > 0
     and row    < map.rows +1
@@ -122,17 +148,4 @@ function isSquareReal(map, row, column)
     end
 
     return false
-end
-
-
-function centerText(text, font, container)
-    textData = {}
-        textData.text      = text
-        textData.font      = font
-        textData.transform = love.math.newTransform(container.x, 
-                             container.y + container.height /2 - font:getHeight() /2)
-        textData.limit     = container.width
-        textData.align     = "center"
-
-    return textData
 end
