@@ -80,6 +80,7 @@ function love.mousepressed(x, y, button, isTouch)
     debug:onClick()
 end
 
+
 function love.mousemoved(x, y, dx, dy, istouch)
     ui.mapDisplay:dragGrid(dx, dy)
 end

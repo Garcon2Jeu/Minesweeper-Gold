@@ -49,15 +49,17 @@ function ScoreBoard:new(topBar)
         self.final.final  = self:processTextData(" Final: ", self.final, 4, "left")
 end
 
+
 function ScoreBoard:update(score)
     self.score = {}
-    self.score.mines       = {flagged = score.mines.flagged, swept = score.mines.swept, missed = score.mines.missed}
-    self.score.gold        = {swept = score.gold.swept, missed = score.gold.missed}
-    self.score.squares     = {cleared = score.squares.cleared, missed = score.squares.missed}
-    self.score.explo = score.exploration
-    self.score.time        = score.time 
-    self.score.final       = score.final 
+    self.score.mines   = {flagged = score.mines.flagged, swept = score.mines.swept, missed = score.mines.missed}
+    self.score.gold    = {swept = score.gold.swept, missed = score.gold.missed}
+    self.score.squares = {cleared = score.squares.cleared, missed = score.squares.missed}
+    self.score.explo   = score.exploration
+    self.score.time    = score.time 
+    self.score.final   = score.final 
 end
+
 
 function ScoreBoard:draw()
     love.graphics.setColor(self.color.filling)
@@ -73,30 +75,80 @@ function ScoreBoard:draw()
 
 
     love.graphics.setColor(self.color.font)
-    love.graphics.printf(self.mines.title.text, self.mines.title.font, self.mines.title.transform, 
-                         self.mines.title.limit, self.mines.title.align)
-    love.graphics.printf(self.mines.flagged.text .. self.score.mines.flagged, self.mines.flagged.font, self.mines.flagged.transform, 
-                         self.mines.flagged.limit, self.mines.flagged.align)
-    love.graphics.printf(self.mines.swept.text ..self.score.mines.swept, self.mines.swept.font, self.mines.swept.transform, 
-                         self.mines.swept.limit, self.mines.swept.align)
-    love.graphics.printf(self.mines.missed.text ..self.score.mines.missed, self.mines.missed.font, self.mines.missed.transform, 
-                         self.mines.missed.limit, self.mines.missed.align)
+    love.graphics.printf(
+        self.mines.title.text,
+        self.mines.title.font,
+        self.mines.title.transform,
+        self.mines.title.limit,
+        self.mines.title.align
+    )
+    love.graphics.printf(
+        self.mines.flagged.text ..self.score.mines.flagged,
+        self.mines.flagged.font,
+        self.mines.flagged.transform,
+        self.mines.flagged.limit,
+        self.mines.flagged.align
+    )
+    love.graphics.printf(
+        self.mines.swept.text ..self.score.mines.swept,
+        self.mines.swept.font,
+        self.mines.swept.transform,
+        self.mines.swept.limit,
+        self.mines.swept.align
+    )
+    love.graphics.printf(
+        self.mines.missed.text ..self.score.mines.missed .."/" ..gamePlay.mapData.mines,
+        self.mines.missed.font, 
+        self.mines.missed.transform,
+        self.mines.missed.limit,
+        self.mines.missed.align
+    )
 
 
-    love.graphics.printf(self.gold.title.text, self.gold.title.font, self.gold.title.transform, 
-                         self.gold.title.limit, self.gold.title.align)
-    love.graphics.printf(self.gold.swept.text ..self.score.gold.swept , self.gold.swept.font, self.gold.swept.transform, 
-                         self.gold.swept.limit, self.gold.swept.align)
-    love.graphics.printf(self.gold.missed.text ..self.score.gold.missed, self.gold.missed.font, self.gold.missed.transform, 
-                         self.gold.missed.limit, self.gold.missed.align)
+    love.graphics.printf(
+        self.gold.title.text, 
+        self.gold.title.font, 
+        self.gold.title.transform, 
+        self.gold.title.limit,
+        self.gold.title.align
+    )
+    love.graphics.printf(
+        self.gold.swept.text ..self.score.gold.swept, 
+        self.gold.swept.font,
+        self.gold.swept.transform, 
+        self.gold.swept.limit, 
+        self.gold.swept.align
+    )
+    love.graphics.printf(
+        self.gold.missed.text ..self.score.gold.missed .."/" ..gamePlay.mapData.mines, 
+        self.gold.missed.font, 
+        self.gold.missed.transform, 
+        self.gold.missed.limit, 
+        self.gold.missed.align
+    )
 
 
-    love.graphics.printf(self.squares.title.text, self.squares.title.font, self.squares.title.transform, 
-                         self.squares.title.limit, self.squares.title.align)
-    love.graphics.printf(self.squares.cleared.text ..self.score.squares.cleared, self.squares.cleared.font, self.squares.cleared.transform, 
-                         self.squares.cleared.limit, self.squares.cleared.align)
-    love.graphics.printf(self.squares.missed.text ..self.score.squares.missed, self.squares.missed.font, self.squares.missed.transform, 
-                         self.squares.missed.limit, self.squares.missed.align)
+    love.graphics.printf(
+        self.squares.title.text, 
+        self.squares.title.font, 
+        self.squares.title.transform, 
+        self.squares.title.limit, 
+        self.squares.title.align
+    )
+    love.graphics.printf(
+        self.squares.cleared.text ..self.score.squares.cleared,
+        self.squares.cleared.font,
+        self.squares.cleared.transform, 
+        self.squares.cleared.limit,
+        self.squares.cleared.align
+    )
+    love.graphics.printf(
+        self.squares.missed.text ..self.score.squares.missed .."/" ..gamePlay.mapData.totalSquares,
+        self.squares.missed.font, 
+        self.squares.missed.transform, 
+        self.squares.missed.limit,
+        self.squares.missed.align
+    )
 
 
     love.graphics.printf(self.final.title.text, self.final.title.font, self.final.title.transform, 

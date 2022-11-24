@@ -1,2 +1,2 @@
-# Minesweeper
+# MINESWEEPER GOLD
  
