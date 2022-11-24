@@ -151,16 +151,36 @@ function ScoreBoard:draw()
     )
 
 
-    love.graphics.printf(self.final.title.text, self.final.title.font, self.final.title.transform, 
-                         self.final.title.limit, self.final.title.align)
-    love.graphics.printf(self.final.time.text .. self.score.time, self.final.time.font, self.final.time.transform, 
-                         self.final.time.limit, self.final.time.align)
-    love.graphics.printf(self.final.explo.text ..self.score.explo, self.final.explo.font, self.final.explo.transform, 
-                         self.final.explo.limit, self.final.explo.align)
+    love.graphics.printf(
+        self.final.title.text, 
+        self.final.title.font, 
+        self.final.title.transform, 
+        self.final.title.limit, 
+        self.final.title.align
+    )
+    love.graphics.printf(
+        self.final.time.text .. self.score.time, 
+        self.final.time.font, 
+        self.final.time.transform, 
+        self.final.time.limit, 
+        self.final.time.align
+    )
+    love.graphics.printf(
+        self.final.explo.text ..self.score.explo,
+        self.final.explo.font, 
+        self.final.explo.transform, 
+        self.final.explo.limit, 
+        self.final.explo.align
+    )
 
     love.graphics.setColor(yellow)
-    love.graphics.printf(self.final.final.text ..self.score.final, self.final.final.font, self.final.final.transform, 
-                         self.final.final.limit, self.final.final.align)
+    love.graphics.printf(
+        self.final.final.text ..self.score.final,
+        self.final.final.font,
+        self.final.final.transform, 
+        self.final.final.limit, 
+        self.final.final.align
+    )
 end
 
 
