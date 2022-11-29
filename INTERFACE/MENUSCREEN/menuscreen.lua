@@ -1,5 +1,6 @@
 require "/INTERFACE/MENUSCREEN/mapmode"
 require "/INTERFACE/MENUSCREEN/PRESETS/presets"
+require "/INTERFACE/MENUSCREEN/CUSTOM/custom"
 
 
 MenuScreen = Object:extend()
@@ -20,6 +21,7 @@ function MenuScreen:new(windowBox, topBar)
 
     self.mapMode = MapMode(self)
     self.presets = Presets(self)
+    self.custom  = Custom(self)
 end
 
 
@@ -33,8 +35,8 @@ function MenuScreen:draw(gamePlay, map)
 
         if seed.mapMode == "presets" then
             self.presets:draw()
-        --elseif seed.mapMode == "custom" then
-            --self.custom:draw()
+        elseif seed.mapMode == "custom" then
+            self.custom:draw()
         end
         
     love.graphics.setCanvas()
@@ -47,7 +49,7 @@ end
 function MenuScreen:processContainersHeight()
     local height = {}
         height.mapMode    = getNumberFromPercentage(self.height, 35)
-        height.mapSize    = getNumberFromPercentage(self.height, 20)
+        height.presetsSize    = getNumberFromPercentage(self.height, 20)
         height.difficulty = getNumberFromPercentage(self.height, 20)
         height.gameMode   = getNumberFromPercentage(self.height, 25)
     
@@ -57,8 +59,8 @@ end
 function MenuScreen:processContainersY()
     local y = {}
         y.mapMode    = 0
-        y.mapSize    = y.mapMode + self.containers.height.mapMode
-        y.difficulty = y.mapSize + self.containers.height.mapSize
+        y.presetsSize    = y.mapMode + self.containers.height.mapMode
+        y.difficulty = y.presetsSize + self.containers.height.presetsSize
         y.gameMode   = y.difficulty + self.containers.height.difficulty
     
     return y
@@ -94,20 +96,20 @@ function MenuScreen:select()
     end
 
     if seed.mapMode == "custom" then
-        --self.mapMode.custom.color.font = purple
+        self.mapMode.custom.color.font = purple
     end
 
 
-    if seed.mapSize == "small" then
-        self.presets.mapSize.small.color.font = purple
+    if seed.presetsSize == "small" then
+        self.presets.presetsSize.small.color.font = purple
     end
 
-    if seed.mapSize == "medium" then
-        self.presets.mapSize.medium.color.font = purple
+    if seed.presetsSize == "medium" then
+        self.presets.presetsSize.medium.color.font = purple
     end
 
-    if seed.mapSize == "big" then
-        self.presets.mapSize.big.color.font = purple
+    if seed.presetsSize == "big" then
+        self.presets.presetsSize.big.color.font = purple
     end
 
 
@@ -149,16 +151,16 @@ function MenuScreen:onClick(button)
     end
 
 
-    if isMouseOverMenuScreen(self.presets.mapSize.small) then
-        seed.mapSize = "small"
+    if isMouseOverMenuScreen(self.presets.presetsSize.small) then
+        seed.presetsSize = "small"
     end
 
-    if isMouseOverMenuScreen(self.presets.mapSize.medium) then
-        seed.mapSize = "medium"
+    if isMouseOverMenuScreen(self.presets.presetsSize.medium) then
+        seed.presetsSize = "medium"
     end
 
-    if isMouseOverMenuScreen(self.presets.mapSize.big) then
-        seed.mapSize = "big"
+    if isMouseOverMenuScreen(self.presets.presetsSize.big) then
+        seed.presetsSize = "big"
     end
 
 

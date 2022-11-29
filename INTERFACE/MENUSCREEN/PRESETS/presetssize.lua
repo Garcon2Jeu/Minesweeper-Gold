@@ -1,6 +1,6 @@
-MapSize = Object:extend()
+PresetsSize = Object:extend()
 
-function MapSize:new(menuScreen)
+function PresetsSize:new(menuScreen)
     self.small = {}
         self.small.x        = menuScreen.x
         self.small.y        = menuScreen.containers.y.mapSize
@@ -30,7 +30,7 @@ function MapSize:new(menuScreen)
 end
 
 
-function MapSize:draw()
+function PresetsSize:draw()
     love.graphics.setColor(self.small.color.filling)
     love.graphics.rectangle(self.small.drawMode, self.small.x, 
                             self.small.y, self.small.width, self.small.height)
