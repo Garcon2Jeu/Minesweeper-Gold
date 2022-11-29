@@ -49,7 +49,7 @@ end
 function MenuScreen:processContainersHeight()
     local height = {}
         height.mapMode    = getNumberFromPercentage(self.height, 35)
-        height.presetsSize    = getNumberFromPercentage(self.height, 20)
+        height.mapSize    = getNumberFromPercentage(self.height, 20)
         height.difficulty = getNumberFromPercentage(self.height, 20)
         height.gameMode   = getNumberFromPercentage(self.height, 25)
     
@@ -58,10 +58,10 @@ end
 
 function MenuScreen:processContainersY()
     local y = {}
-        y.mapMode    = 0
-        y.presetsSize    = y.mapMode + self.containers.height.mapMode
-        y.difficulty = y.presetsSize + self.containers.height.presetsSize
-        y.gameMode   = y.difficulty + self.containers.height.difficulty
+        y.mapMode     = 0
+        y.mapSize = y.mapMode + self.containers.height.mapMode
+        y.difficulty  = y.mapSize + self.containers.height.mapSize
+        y.gameMode    = y.difficulty + self.containers.height.difficulty
     
     return y
 end

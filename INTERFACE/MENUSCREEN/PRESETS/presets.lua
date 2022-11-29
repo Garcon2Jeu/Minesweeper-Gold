@@ -12,7 +12,7 @@ function Presets:new(menuScreen)
 end
 
 function Presets:draw()
-    self.mapSize:draw()
+    self.presetsSize:draw()
     self.difficulty:draw()
     self.gameMode:draw()
 end
