@@ -1,11 +1,11 @@
-PresetsCustom = Object:extend()
+MapMode = Object:extend()
 
-function PresetsCustom:new(menuScreen)
+function MapMode:new(menuScreen)
     self.presets = {}
         self.presets.x        = menuScreen.x
-        self.presets.y        = menuScreen.containers.y.presetsCustom
+        self.presets.y        = menuScreen.containers.y.mapMode
         self.presets.width    = menuScreen.width /2
-        self.presets.height   = menuScreen.containers.height.presetsCustom
+        self.presets.height   = menuScreen.containers.height.mapMode
         self.presets.drawMode = "line"
         self.presets.color    = {filling = white, font = white}
         self.presets.textData = centerText("PRESETS", FontHuge, self.presets)
@@ -20,8 +20,7 @@ function PresetsCustom:new(menuScreen)
         self.custom.textData = centerText("CUSTOM", FontHuge, self.custom)
 end
 
-
-function PresetsCustom:draw()
+function MapMode:draw()
     love.graphics.setColor(self.presets.color.filling)
     love.graphics.rectangle(self.presets.drawMode, self.presets.x, 
                             self.presets.y, self.presets.width, self.presets.height)

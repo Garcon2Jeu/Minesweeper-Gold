@@ -1,7 +1,6 @@
-require "/INTERFACE/MENUSCREEN/presetscustom"
-require "/INTERFACE/MENUSCREEN/mapsize"
-require "/INTERFACE/MENUSCREEN/difficulty"
-require "/INTERFACE/MENUSCREEN/gamemode"
+require "/INTERFACE/MENUSCREEN/mapmode"
+require "/INTERFACE/MENUSCREEN/PRESETS/presets"
+
 
 MenuScreen = Object:extend()
 
@@ -19,11 +18,10 @@ function MenuScreen:new(windowBox, topBar)
         self.containers.x      = self.x
         self.containers.y      = self:processContainersY()
 
-    self.presetsCustom = PresetsCustom(self)
-    self.mapSize       = MapSize(self)
-    self.difficulty    = Difficulty(self)
-    self.gameMode      = GameMode(self)
+    self.mapMode = MapMode(self)
+    self.presets = Presets(self)
 end
+
 
 function MenuScreen:draw(gamePlay, map)
     love.graphics.setCanvas(self.canvas)
@@ -31,10 +29,13 @@ function MenuScreen:draw(gamePlay, map)
 
         --self:drawCenterLines()
 
-        self.presetsCustom:draw()
-        self.mapSize:draw()
-        self.difficulty:draw()
-        self.gameMode:draw()
+        self.mapMode:draw()
+
+        if seed.mapMode == "presets" then
+            self.presets:draw()
+        --elseif seed.mapMode == "custom" then
+            --self.custom:draw()
+        end
         
     love.graphics.setCanvas()
     love.graphics.draw(self.canvas, self.x, self.y)
@@ -45,20 +46,20 @@ end
 
 function MenuScreen:processContainersHeight()
     local height = {}
-        height.presetsCustom = getNumberFromPercentage(self.height, 35)
-        height.mapSize       = getNumberFromPercentage(self.height, 20)
-        height.difficulty    = getNumberFromPercentage(self.height, 20)
-        height.gameMode      = getNumberFromPercentage(self.height, 25)
+        height.mapMode    = getNumberFromPercentage(self.height, 35)
+        height.mapSize    = getNumberFromPercentage(self.height, 20)
+        height.difficulty = getNumberFromPercentage(self.height, 20)
+        height.gameMode   = getNumberFromPercentage(self.height, 25)
     
     return height
 end
 
 function MenuScreen:processContainersY()
     local y = {}
-        y.presetsCustom = 0
-        y.mapSize       = y.presetsCustom + self.containers.height.presetsCustom
-        y.difficulty    = y.mapSize + self.containers.height.mapSize
-        y.gameMode      = y.difficulty + self.containers.height.difficulty
+        y.mapMode    = 0
+        y.mapSize    = y.mapMode + self.containers.height.mapMode
+        y.difficulty = y.mapSize + self.containers.height.mapSize
+        y.gameMode   = y.difficulty + self.containers.height.difficulty
     
     return y
 end
@@ -88,49 +89,50 @@ end
 
 
 function MenuScreen:select()
-    if seed.presetsCustom == "presets" then
-        self.presetsCustom.presets.color.font = purple
+    if seed.mapMode == "presets" then
+        self.mapMode.presets.color.font = purple
     end
 
-    if seed.presetsCustom == "custom" then
-        self.presetsCustom.custom.color.font = purple
+    if seed.mapMode == "custom" then
+        --self.mapMode.custom.color.font = purple
     end
 
 
     if seed.mapSize == "small" then
-        self.mapSize.small.color.font = purple
+        self.presets.mapSize.small.color.font = purple
     end
 
     if seed.mapSize == "medium" then
-        self.mapSize.medium.color.font = purple
+        self.presets.mapSize.medium.color.font = purple
     end
 
     if seed.mapSize == "big" then
-        self.mapSize.big.color.font = purple
+        self.presets.mapSize.big.color.font = purple
     end
 
 
     if seed.difficulty == "easy" then
-        self.difficulty.easy.color.font = purple
+        self.presets.difficulty.easy.color.font = purple
     end
 
     if seed.difficulty == "normal" then
-        self.difficulty.normal.color.font = purple
+        self.presets.difficulty.normal.color.font = purple
     end
 
     if seed.difficulty == "hard" then
-        self.difficulty.hard.color.font = purple
+        self.presets.difficulty.hard.color.font = purple
     end
 
 
     if seed.gameMode == "gold" then
-        self.gameMode.gold.color.font = purple
+        self.presets.gameMode.gold.color.font = purple
     end
 
     if seed.gameMode == "classic" then
-        self.gameMode.classic.color.font = purple
+        self.presets.gameMode.classic.color.font = purple
     end
 end
+
 
 function MenuScreen:onClick(button)
     if not gamePlay.paused 
@@ -138,49 +140,52 @@ function MenuScreen:onClick(button)
         return
     end
 
-    if isMouseOverMenuScreen(self.presetsCustom.presets) then
-        seed.presetsCustom = "presets"
+    if isMouseOverMenuScreen(self.mapMode.presets) then
+        seed.mapMode = "presets"
     end
 
-    if isMouseOverMenuScreen(self.presetsCustom.custom) then
-        seed.presetsCustom = "custom"
+    if isMouseOverMenuScreen(self.mapMode.custom) then
+        seed.mapMode = "custom"
     end
 
 
-    if isMouseOverMenuScreen(self.mapSize.small) then
+    if isMouseOverMenuScreen(self.presets.mapSize.small) then
         seed.mapSize = "small"
     end
 
-    if isMouseOverMenuScreen(self.mapSize.medium) then
+    if isMouseOverMenuScreen(self.presets.mapSize.medium) then
         seed.mapSize = "medium"
     end
 
-    if isMouseOverMenuScreen(self.mapSize.big) then
+    if isMouseOverMenuScreen(self.presets.mapSize.big) then
         seed.mapSize = "big"
     end
 
 
-    if isMouseOverMenuScreen(self.difficulty.easy) then
+    if isMouseOverMenuScreen(self.presets.difficulty.easy) then
         seed.difficulty = "easy"
     end
 
-    if isMouseOverMenuScreen(self.difficulty.normal) then
+    if isMouseOverMenuScreen(self.presets.difficulty.normal) then
         seed.difficulty = "normal"
     end
 
-    if isMouseOverMenuScreen(self.difficulty.hard) then
+    if isMouseOverMenuScreen(self.presets.difficulty.hard) then
         seed.difficulty = "hard"
     end
 
 
-    if isMouseOverMenuScreen(self.gameMode.gold) then
+    if isMouseOverMenuScreen(self.presets.gameMode.gold) then
         seed.gameMode = "gold"
     end
 
-    if isMouseOverMenuScreen(self.gameMode.classic) then
+    if isMouseOverMenuScreen(self.presets.gameMode.classic) then
         seed.gameMode = "classic"
     end
 end
+
+
+
 
 
 function MenuScreen:drawCenterLines()

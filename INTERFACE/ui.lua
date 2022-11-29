@@ -58,27 +58,28 @@ function Ui:highlightElements()
     self.leftBar.flagMode:highlight()
     self.leftBar.sweepMode:highlight()
     
-    self.menuScreen:highlight(self.menuScreen.presetsCustom.presets)
-    self.menuScreen:highlight(self.menuScreen.presetsCustom.custom)
-    self.menuScreen:highlight(self.menuScreen.mapSize.small)
-    self.menuScreen:highlight(self.menuScreen.mapSize.medium)
-    self.menuScreen:highlight(self.menuScreen.mapSize.big)
-    self.menuScreen:highlight(self.menuScreen.difficulty.easy)
-    self.menuScreen:highlight(self.menuScreen.difficulty.normal)
-    self.menuScreen:highlight(self.menuScreen.difficulty.hard)
-    self.menuScreen:highlight(self.menuScreen.gameMode.gold)
-    self.menuScreen:highlight(self.menuScreen.gameMode.classic)
+    self.menuScreen:highlight(self.menuScreen.mapMode.presets)
+    self.menuScreen:highlight(self.menuScreen.mapMode.custom)
+
+    self.menuScreen:highlight(self.menuScreen.presets.mapSize.small)
+    self.menuScreen:highlight(self.menuScreen.presets.mapSize.medium)
+    self.menuScreen:highlight(self.menuScreen.presets.mapSize.big)
+    self.menuScreen:highlight(self.menuScreen.presets.difficulty.easy)
+    self.menuScreen:highlight(self.menuScreen.presets.difficulty.normal)
+    self.menuScreen:highlight(self.menuScreen.presets.difficulty.hard)
+    self.menuScreen:highlight(self.menuScreen.presets.gameMode.gold)
+    self.menuScreen:highlight(self.menuScreen.presets.gameMode.classic)
 end
 
 
-function Ui:highlight(element)
-    if isMouseOver(element) then 
-        element.drawMode      = "fill"
-        element.color.font    = black
-        element.color.filling = white
+function Ui:highlight(container)
+    if isMouseOver(container) then 
+        container.drawMode      = "fill"
+        container.color.font    = black
+        container.color.filling = white
     else
-        element.drawMode      = "line"
-        element.color.font    = white
+        container.drawMode      = "line"
+        container.color.font    = white
     end
 end
 
