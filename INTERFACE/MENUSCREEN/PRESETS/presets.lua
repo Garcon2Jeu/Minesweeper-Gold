@@ -6,9 +6,9 @@ require "/INTERFACE/MENUSCREEN/PRESETS/gamemode"
 Presets = Object:extend()
 
 function Presets:new(menuScreen)
-    self.presetsSize    = PresetsSize(menuScreen)
-    self.difficulty = Difficulty(menuScreen)
-    self.gameMode   = GameMode(menuScreen)
+    self.presetsSize = PresetsSize(menuScreen)
+    self.difficulty  = Difficulty(menuScreen)
+    self.gameMode    = GameMode(menuScreen)
 end
 
 function Presets:draw()

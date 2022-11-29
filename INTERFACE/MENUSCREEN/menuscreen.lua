@@ -48,20 +48,27 @@ end
 
 function MenuScreen:processContainersHeight()
     local height = {}
-        height.mapMode    = getNumberFromPercentage(self.height, 35)
-        height.mapSize    = getNumberFromPercentage(self.height, 20)
-        height.difficulty = getNumberFromPercentage(self.height, 20)
-        height.gameMode   = getNumberFromPercentage(self.height, 25)
+        height.mapMode      = getNumberFromPercentage(self.height, 35)
+        height.mapSize      = getNumberFromPercentage(self.height, 20)
+        height.difficulty   = getNumberFromPercentage(self.height, 20)
+        height.gameMode     = getNumberFromPercentage(self.height, 25)
+        height.customGauges = getNumberFromPercentage(self.height, 65) /6
     
     return height
 end
 
 function MenuScreen:processContainersY()
     local y = {}
-        y.mapMode     = 0
-        y.mapSize = y.mapMode + self.containers.height.mapMode
-        y.difficulty  = y.mapSize + self.containers.height.mapSize
-        y.gameMode    = y.difficulty + self.containers.height.difficulty
+        y.mapMode    = 0
+        y.mapSize    = y.mapMode + self.containers.height.mapMode
+        y.difficulty = y.mapSize + self.containers.height.mapSize
+        y.gameMode   = y.difficulty + self.containers.height.difficulty
+        y.rows       = y.mapSize
+        y.columns    = y.rows + self.containers.height.customGauges
+        y.mines      = y.columns + self.containers.height.customGauges
+        y.gold       = y.mines + self.containers.height.customGauges
+        y.sweepers   = y.gold + self.containers.height.customGauges
+        y.perSquares = y.sweepers + self.containers.height.customGauges
     
     return y
 end
