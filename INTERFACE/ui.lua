@@ -26,6 +26,8 @@ function Ui:update()
     
     self.mapDisplay:update(self.leftBar.zoom.zoomPercentage)
 
+    self.menuScreen:update()
+
     self:highlightElements()
 end
 

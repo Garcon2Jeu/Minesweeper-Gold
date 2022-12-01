@@ -18,10 +18,15 @@ function MenuScreen:new(windowBox, topBar)
         self.containers.height = self:processContainersHeight()
         self.containers.x      = self.x
         self.containers.y      = self:processContainersY()
+        self.containers.gauge  = self.width /22
 
     self.mapMode = MapMode(self)
     self.presets = Presets(self)
     self.custom  = Custom(self)
+end
+
+function MenuScreen:update()
+    self.custom:update()
 end
 
 
@@ -57,6 +62,7 @@ function MenuScreen:processContainersHeight()
     return height
 end
 
+
 function MenuScreen:processContainersY()
     local y = {}
         y.mapMode    = 0
@@ -67,8 +73,8 @@ function MenuScreen:processContainersY()
         y.columns    = y.rows + self.containers.height.customGauges
         y.mines      = y.columns + self.containers.height.customGauges
         y.gold       = y.mines + self.containers.height.customGauges
-        y.sweepers   = y.gold + self.containers.height.customGauges
-        y.perSquares = y.sweepers + self.containers.height.customGauges
+        y.perSquares = y.gold + self.containers.height.customGauges
+        y.bonus      = y.perSquares + self.containers.height.customGauges
     
     return y
 end
@@ -155,6 +161,11 @@ function MenuScreen:onClick(button)
 
     if isMouseOverMenuScreen(self.mapMode.custom) then
         seed.mapMode = "custom"
+    end
+
+
+    if seed.mapMode == "custom" then
+        return
     end
 
 
