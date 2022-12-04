@@ -2,8 +2,6 @@ require "/INTERFACE/MENUSCREEN/CUSTOM/customsize"
 require "/INTERFACE/MENUSCREEN/CUSTOM/custommines"
 require "/INTERFACE/MENUSCREEN/CUSTOM/customgold"
 require "/INTERFACE/MENUSCREEN/CUSTOM/customsweepers"
---require "/INTERFACE/MENUSCREEN/CUSTOM/difficulty"
---require "/INTERFACE/MENUSCREEN/CUSTOM/gamemode"
 
 
 Custom = Object:extend()
@@ -26,7 +24,6 @@ function Custom:update()
 
     self:updateMetric(self.customGold)
     self:editMetric(self.customGold)
-
 
     self:editMetric(self.customSweepers)
 end
