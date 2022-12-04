@@ -26,7 +26,9 @@ function MenuScreen:new(windowBox, topBar)
 end
 
 function MenuScreen:update()
-    self.custom:update()
+    if seed.mapMode == "custom" then
+        self.custom:update()
+    end
 end
 
 
@@ -113,16 +115,16 @@ function MenuScreen:select()
     end
 
 
-    if seed.presetsSize == "small" then
-        self.presets.presetsSize.small.color.font = purple
+    if seed.mapSize == "small" then
+        self.presets.mapSize.small.color.font = purple
     end
 
-    if seed.presetsSize == "medium" then
-        self.presets.presetsSize.medium.color.font = purple
+    if seed.mapSize == "medium" then
+        self.presets.mapSize.medium.color.font = purple
     end
 
-    if seed.presetsSize == "big" then
-        self.presets.presetsSize.big.color.font = purple
+    if seed.mapSize == "big" then
+        self.presets.mapSize.big.color.font = purple
     end
 
 
@@ -169,16 +171,16 @@ function MenuScreen:onClick(button)
     end
 
 
-    if isMouseOverMenuScreen(self.presets.presetsSize.small) then
-        seed.presetsSize = "small"
+    if isMouseOverMenuScreen(self.presets.mapSize.small) then
+        seed.mapSize = "small"
     end
 
-    if isMouseOverMenuScreen(self.presets.presetsSize.medium) then
-        seed.presetsSize = "medium"
+    if isMouseOverMenuScreen(self.presets.mapSize.medium) then
+        seed.mapSize = "medium"
     end
 
-    if isMouseOverMenuScreen(self.presets.presetsSize.big) then
-        seed.presetsSize = "big"
+    if isMouseOverMenuScreen(self.presets.mapSize.big) then
+        seed.mapSize = "big"
     end
 
 

@@ -12,7 +12,7 @@ function Custom:new(menuScreen)
     self.color = {filling = white, font = white, gauge = purple}
     self.gauge = "fill"
     self.customSize      = CustomSize(menuScreen)
-    self.customMines     = CustomMines(menuScreen)
+    self.customMines     = CustomMines(menuScreen, self.customSize)
     self.customGold      = CustomGold(menuScreen)
     self.customSweepers  = CustomSweepers(menuScreen)
 end
@@ -20,12 +20,21 @@ end
 function Custom:update()
     self:editMetric(self.customSize.rows)
     self:editMetric(self.customSize.columns)
-    --self.customMines:update(self.customSize)
+
+    self:updateMetric(self.customMines)
     self:editMetric(self.customMines)
-    --self:editMetric(self.customGold)
+
+    self:updateMetric(self.customGold)
+    self:editMetric(self.customGold)
+
     --self:editMetric(self.customSweepers.perSquares)
     --self:editMetric(self.customSweepers.bonus)
 end
+
+
+
+
+
 
 function Custom:editMetric(container)
     if not isMouseOverMenuScreen(container) 
@@ -35,14 +44,31 @@ function Custom:editMetric(container)
 
     local mouse = getMousePosition()
     
-    for i = 1, 22 do 
-        if mouse.x > container.increments * (i -1)
-        and mouse.x < container.increments * i then
-            container.gauge = container.increments * i
-            container.number = 9 + i -1
+    for i = 1, container.gauge.increments.total do 
+        if  mouse.x > container.gauge.increments.width * (i -1)
+        and mouse.x < container.gauge.increments.width * i then
+            container.gauge.width  = container.gauge.increments.width * i
+            container.gauge.number = container.gauge.min + (i -1)
         end
     end
 end
+
+
+function Custom:updateMetric(container)
+    container.gauge.increments.total = self.customSize.rows.gauge.number * 
+                                        self.customSize.columns.gauge.number -10
+    container.gauge.increments.width = container.width / container.gauge.increments.total
+    container.gauge.width            = container.gauge.increments.width * 
+                                        container.gauge.number
+
+    if container.gauge.number > container.gauge.increments.total then
+        container.gauge.number = container.gauge.increments.total
+    end
+end
+
+
+
+
 
 function Custom:draw()
     love.graphics.setColor(self.color.filling)
@@ -102,7 +128,7 @@ function Custom:draw()
         self.gauge, 
         self.customSize.rows.x, 
         self.customSize.rows.y, 
-        self.customSize.rows.gauge, 
+        self.customSize.rows.gauge.width, 
         self.customSize.rows.height
     )
 
@@ -110,7 +136,7 @@ function Custom:draw()
         self.gauge, 
         self.customSize.columns.x, 
         self.customSize.columns.y, 
-        self.customSize.columns.gauge, 
+        self.customSize.columns.gauge.width, 
         self.customSize.columns.height
     )
 
@@ -118,7 +144,7 @@ function Custom:draw()
         self.gauge, 
         self.customMines.x, 
         self.customMines.y, 
-        self.customMines.gauge, 
+        self.customMines.gauge.width, 
         self.customMines.height
     )
 
@@ -126,7 +152,7 @@ function Custom:draw()
         self.gauge, 
         self.customGold.x, 
         self.customGold.y, 
-        self.customGold.gauge, 
+        self.customGold.gauge.width, 
         self.customGold.height
     )
 
@@ -150,7 +176,7 @@ function Custom:draw()
 
     love.graphics.setColor(self.color.font)
     love.graphics.printf(
-        self.customSize.rows.number .." " ..self.customSize.rows.textData.text, 
+        self.customSize.rows.gauge.number .." " ..self.customSize.rows.textData.text, 
         self.customSize.rows.textData.font, 
         self.customSize.rows.textData.transform,      
         self.customSize.rows.textData.limit, 
@@ -158,7 +184,7 @@ function Custom:draw()
     )
 
     love.graphics.printf(
-        self.customSize.columns.number .." " ..self.customSize.columns.textData.text, 
+        self.customSize.columns.gauge.number .." " ..self.customSize.columns.textData.text, 
         self.customSize.columns.textData.font, 
         self.customSize.columns.textData.transform,      
         self.customSize.columns.textData.limit, 
@@ -166,7 +192,7 @@ function Custom:draw()
     )
 
     love.graphics.printf(
-        self.customMines.number .." " ..self.customMines.textData.text, 
+        self.customMines.gauge.number .." " ..self.customMines.textData.text, 
         self.customMines.textData.font, 
         self.customMines.textData.transform,      
         self.customMines.textData.limit, 
@@ -174,7 +200,7 @@ function Custom:draw()
     )
 
     love.graphics.printf(
-        self.customGold.number .." " .. self.customGold.textData.text, 
+        self.customGold.gauge.number .." " .. self.customGold.textData.text, 
         self.customGold.textData.font, 
         self.customGold.textData.transform,      
         self.customGold.textData.limit, 
