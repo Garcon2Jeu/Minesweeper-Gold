@@ -59,7 +59,7 @@ function MenuScreen:processContainersHeight()
         height.mapSize      = getNumberFromPercentage(self.height, 20)
         height.difficulty   = getNumberFromPercentage(self.height, 20)
         height.gameMode     = getNumberFromPercentage(self.height, 25)
-        height.customGauges = getNumberFromPercentage(self.height, 65) /6
+        height.customGauges = getNumberFromPercentage(self.height, 65) /5
     
     return height
 end
@@ -75,8 +75,7 @@ function MenuScreen:processContainersY()
         y.columns    = y.rows + self.containers.height.customGauges
         y.mines      = y.columns + self.containers.height.customGauges
         y.gold       = y.mines + self.containers.height.customGauges
-        y.perSquares = y.gold + self.containers.height.customGauges
-        y.bonus      = y.perSquares + self.containers.height.customGauges
+        y.bonus      = y.gold + self.containers.height.customGauges
     
     return y
 end

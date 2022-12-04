@@ -1,26 +1,20 @@
 CustomSweepers = Object:extend()
 
 function CustomSweepers:new(menuScreen)
-    self.color = {filling = white, font = white}
+    self.x        = menuScreen.x
+    self.y        = menuScreen.containers.y.bonus
+    self.width    = menuScreen.width
+    self.height   = menuScreen.containers.height.customGauges
+    self.drawMode = "line"
+    self.textData = centerText("BONUS SWEEPERS", FontBig, self)
 
-    self.perSquares = {}
-        self.perSquares.x        = menuScreen.x
-        self.perSquares.y        = menuScreen.containers.y.perSquares
-        self.perSquares.width    = menuScreen.width
-        self.perSquares.height   = menuScreen.containers.height.customGauges
-        self.perSquares.drawMode = "line"
-        self.perSquares.textData = centerText("SWEEPERS PER SQUARES", FontBig, self.perSquares)
-        self.perSquares.gauge    = menuScreen.containers.gauge
-        self.perSquares.number   = 9
-
-    self.bonus = {}
-        self.bonus.x        = menuScreen.x
-        self.bonus.y        = menuScreen.containers.y.bonus
-        self.bonus.width    = menuScreen.width
-        self.bonus.height   = menuScreen.containers.height.customGauges
-        self.bonus.drawMode = "line"
-        self.bonus.textData = centerText("BONUS SWEEPERS", FontBig, self.bonus)
-        self.bonus.gauge    = menuScreen.containers.gauge
-        self.bonus.number   = 9
+    self.gauge = {}
+    self.gauge.width      = menuScreen.containers.gauge
+    self.gauge.min        = 1
+    self.gauge.max        = 100
+    self.gauge.number     = 1
+    self.gauge.increments = {}
+        self.gauge.increments.total = self.gauge.max - self.gauge.min +1
+        self.gauge.increments.width = self.width / self.gauge.increments.total
 end
 

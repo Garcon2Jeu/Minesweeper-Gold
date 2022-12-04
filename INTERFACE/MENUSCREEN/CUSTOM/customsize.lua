@@ -38,7 +38,3 @@ function CustomSize:new(menuScreen)
                 self.columns.gauge.increments.total = self.columns.gauge.max - self.columns.gauge.min +1
                 self.columns.gauge.increments.width = self.columns.width / self.columns.gauge.increments.total
 end
-
-
-function CustomSize:update()
-end

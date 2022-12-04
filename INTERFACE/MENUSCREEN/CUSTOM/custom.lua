@@ -27,8 +27,8 @@ function Custom:update()
     self:updateMetric(self.customGold)
     self:editMetric(self.customGold)
 
-    --self:editMetric(self.customSweepers.perSquares)
-    --self:editMetric(self.customSweepers.bonus)
+
+    self:editMetric(self.customSweepers)
 end
 
 
@@ -105,19 +105,11 @@ function Custom:draw()
     )
 
     love.graphics.rectangle(
-        self.customSweepers.perSquares.drawMode, 
-        self.customSweepers.perSquares.x, 
-        self.customSweepers.perSquares.y, 
-        self.customSweepers.perSquares.width, 
-        self.customSweepers.perSquares.height
-    )
-
-    love.graphics.rectangle(
-        self.customSweepers.bonus.drawMode, 
-        self.customSweepers.bonus.x, 
-        self.customSweepers.bonus.y, 
-        self.customSweepers.bonus.width, 
-        self.customSweepers.bonus.height
+        self.customSweepers.drawMode, 
+        self.customSweepers.x, 
+        self.customSweepers.y, 
+        self.customSweepers.width, 
+        self.customSweepers.height
     )
     
 
@@ -158,18 +150,10 @@ function Custom:draw()
 
     love.graphics.rectangle(
         self.gauge, 
-        self.customSweepers.perSquares.x, 
-        self.customSweepers.perSquares.y, 
-        self.customSweepers.perSquares.gauge, 
-        self.customSweepers.perSquares.height
-    )
-
-    love.graphics.rectangle(
-        self.gauge, 
-        self.customSweepers.bonus.x, 
-        self.customSweepers.bonus.y, 
-        self.customSweepers.bonus.gauge, 
-        self.customSweepers.bonus.height
+        self.customSweepers.x, 
+        self.customSweepers.y, 
+        self.customSweepers.gauge.width, 
+        self.customSweepers.height
     )
 
 
@@ -208,18 +192,10 @@ function Custom:draw()
     )
 
     love.graphics.printf(
-        self.customSweepers.perSquares.number .." " ..self.customSweepers.perSquares.textData.text, 
-        self.customSweepers.perSquares.textData.font, 
-        self.customSweepers.perSquares.textData.transform,      
-        self.customSweepers.perSquares.textData.limit, 
-        self.customSweepers.perSquares.textData.align
-    )
-
-    love.graphics.printf(
-        self.customSweepers.bonus.number .." " ..self.customSweepers.bonus.textData.text, 
-        self.customSweepers.bonus.textData.font, 
-        self.customSweepers.bonus.textData.transform,      
-        self.customSweepers.bonus.textData.limit, 
-        self.customSweepers.bonus.textData.align
+        self.customSweepers.gauge.number .." " ..self.customSweepers.textData.text, 
+        self.customSweepers.textData.font, 
+        self.customSweepers.textData.transform,      
+        self.customSweepers.textData.limit, 
+        self.customSweepers.textData.align
     )
 end
