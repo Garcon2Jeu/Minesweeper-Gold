@@ -1,9 +1,6 @@
 Sweepers = Object:extend()
 
 function Sweepers:new(mapData)
-
-    print(mapData.sweepers.limit)
-
     self.activated = false
     self.inventory = {max = mapData.sweepers.max, current = 0}
     self.required  = {max = mapData.sweepers.required, current = 0}

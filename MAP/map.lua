@@ -111,13 +111,14 @@ function Map:plantSweepCoins()
             for column = 1, self.columns do
                 local square = self.grid[row][column]
                 
-                if not square.isMine 
+                if  not square.isMine 
                 and not square.isGolden
                 and not square.sweepCoin
                 and not square.firstClicked
                 and not square:isSurroundingSquareFirstClicked(self, row, column) then
                     
                     if coinsCounter >= self.sweepCoins then
+                        print(coinsCounter)
                         return
                     end
                     
