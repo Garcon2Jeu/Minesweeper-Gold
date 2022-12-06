@@ -10,6 +10,7 @@ function Map:new(gamePlay)
     self.totalSquares = gamePlay.mapData.totalSquares
     self.mines        = gamePlay.mapData.mines
     self.gold         = gamePlay.mapData.gold
+    self.sweepCoins   = gamePlay.mapData.sweepers.limit
 end
 
 
@@ -41,6 +42,12 @@ function Map:makeGrid(rows, columns)
     return grid
 end
 
+
+function Map:populateGrid()
+    self:plantGold()
+    self:plantMines()
+    self:plantSweepCoins()
+end
 
 function Map:plantMines()
     local minesCounter = 0
@@ -95,3 +102,31 @@ function Map:plantGold()
     end
 end
 
+
+function Map:plantSweepCoins()
+    local coinsCounter = 0
+
+    while coinsCounter <= self.sweepCoins do 
+        for row = 1, self.rows do
+            for column = 1, self.columns do
+                local square = self.grid[row][column]
+                
+                if not square.isMine 
+                and not square.isGolden
+                and not square.sweepCoin
+                and not square.firstClicked
+                and not square:isSurroundingSquareFirstClicked(self, row, column) then
+                    
+                    if coinsCounter >= self.sweepCoins then
+                        return
+                    end
+                    
+                    if love.math.random(1, self.totalSquares) == 1 then
+                        square.sweepCoin = true
+                        coinsCounter = coinsCounter +1
+                    end
+                end
+            end
+        end
+    end
+end

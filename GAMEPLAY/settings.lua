@@ -19,23 +19,25 @@ function setMapData(seed)
 
     mapData.totalSquares = mapData.rows * mapData.columns
 
+    rates = {}
+
 
     if seed.difficulty == "easy" then 
-        mapData.mines    = 71
-        mapData.gold     = 1
-        mapData.sweepers = {inventoryMax = 99, progressMax  = 1} 
+        rates.mines = 0.12
+        rates.gold  = 0.06
+        rates.bonus = 10
     end
 
     if seed.difficulty == "normal" then 
-        mapData.mines    = 246
-        mapData.gold     = 30
-        mapData.sweepers = {inventoryMax = 99, progressMax  = 5} 
+        rates.mines = 0.15
+        rates.gold  = 0.07
+        rates.bonus = 5
     end
 
     if seed.difficulty == "hard" then 
-        mapData.mines    = 890
-        mapData.gold     = 20
-        mapData.sweepers = {inventoryMax = 2, progressMax  = 10} 
+        rates.mines = 0.20
+        rates.gold  = 0.10
+        rates.bonus = 3
     end
 
     
@@ -45,15 +47,27 @@ function setMapData(seed)
     end
 
 
-    if seed.mapMode == "presets" then
-        return mapData
+    mapData.mines    = math.floor(mapData.totalSquares * rates.mines)
+    mapData.gold     = math.floor(mapData.totalSquares * rates.gold)
+    mapData.sweepers = {}
+        mapData.sweepers.max      = mapData.mines + mapData.gold + rates.bonus
+        mapData.sweepers.required = math.floor((mapData.totalSquares - mapData.mines - 
+                                                mapData.gold) / mapData.sweepers.max)
+        mapData.sweepers.limit    = mapData.sweepers.max * mapData.sweepers.required 
+
+
+    if seed.mapMode == "custom" then
+        mapData.rows     = ui.menuScreen.custom.customSize.rows.gauge.number
+        mapData.columns  = ui.menuScreen.custom.customSize.columns.gauge.number
+        mapData.mines    = ui.menuScreen.custom.customMines.gauge.number
+        mapData.gold     = ui.menuScreen.custom.customGold.gauge.number
+        mapData.sweepers = {}
+            mapData.sweepers.max      = mapData.mines + mapData.gold + ui.menuScreen.custom.customSweepers.gauge.number
+            mapData.sweepers.required = math.floor((mapData.totalSquares - mapData.mines - 
+                                                    mapData.gold) / mapData.sweepers.max)
+            mapData.sweepers.limit    = mapData.sweepers.max * mapData.sweepers.required 
     end
 
-    mapData.rows     = ui.menuScreen.custom.customSize.rows.gauge.number
-    mapData.columns  = ui.menuScreen.custom.customSize.columns.gauge.number
-    mapData.mines    = ui.menuScreen.custom.customMines.gauge.number
-    mapData.gold     = ui.menuScreen.custom.customGold.gauge.number
-    --mapData.sweepers = ui.menuscreen.custom.customSweepers.number
         
     return mapData
 end

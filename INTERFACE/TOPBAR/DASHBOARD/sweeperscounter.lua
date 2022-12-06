@@ -34,8 +34,9 @@ end
 
 
 function SweepersCounter:update()
-    self.progress.filling = self.progress.width / gamePlay.sweepers.progress.max * gamePlay.sweepers.progress.current
-    self.available = gamePlay.sweepers.inventory.current
+    self.progress.filling = self.progress.width / gamePlay.sweepers.required.max * 
+                            gamePlay.sweepers.required.current
+    self.available        = gamePlay.sweepers.inventory.current
 end
 
 

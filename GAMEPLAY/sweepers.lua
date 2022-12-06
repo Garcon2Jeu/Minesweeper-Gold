@@ -2,14 +2,17 @@ Sweepers = Object:extend()
 
 function Sweepers:new(mapData)
 
+    print(mapData.sweepers.limit)
+
     self.activated = false
-    self.inventory = {max = mapData.sweepers.inventoryMax, current = 0}
-    self.progress  = {max = mapData.sweepers.progressMax, current = 0}
+    self.inventory = {max = mapData.sweepers.max, current = 0}
+    self.required  = {max = mapData.sweepers.required, current = 0}
+    self.limit     = mapData.sweepers.limit
 end
 
 
 function Sweepers:update()
-    self:countProgress()
+    self:countRequired()
     self:addToInventory()
 end
 
@@ -29,17 +32,15 @@ function Sweepers:toggle()
 end
 
 
-function Sweepers:countProgress()
-    if self.inventory.current < self.inventory.max then
-        self.progress.current = self.progress.current +1
-    end
+function Sweepers:countRequired()
+    self.required.current = self.required.current +1
 end
 
 
 function Sweepers:addToInventory()
-    if self.progress.current >= self.progress.max then 
+    if self.required.current >= self.required.max then 
         self.inventory.current = self.inventory.current +1
-        self.progress.current = 0
+        self.required.current = 0
     end
 end
 

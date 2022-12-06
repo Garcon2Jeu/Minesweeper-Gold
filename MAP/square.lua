@@ -15,6 +15,7 @@ function Square:new(row, column)
     self.cleared      = false
     self.flagged      = false
     self.swept        = false
+    self.sweepCoin   = false
 
     
 end

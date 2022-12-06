@@ -78,8 +78,7 @@ function GamePlay:startGame(map, square)
         self:update("play")
         self.time = love.timer.getTime()
         square.firstClicked = true
-        map:plantGold()
-        map:plantMines()
+        map:populateGrid()
     end
 end
 
