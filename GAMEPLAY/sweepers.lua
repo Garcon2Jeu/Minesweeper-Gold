@@ -2,7 +2,7 @@ Sweepers = Object:extend()
 
 function Sweepers:new(mapData)
     self.activated = false
-    self.inventory = {max = mapData.sweepers.max, current = 0}
+    self.inventory = {max = mapData.sweepers.max,      current = 0}
     self.required  = {max = mapData.sweepers.required, current = 0}
     self.limit     = mapData.sweepers.limit
 end
@@ -35,6 +35,10 @@ end
 
 
 function Sweepers:addToInventory()
+    if self.required.max < 1 then
+        return
+    end
+
     if self.required.current >= self.required.max then 
         self.inventory.current = self.inventory.current +1
         self.required.current = 0
