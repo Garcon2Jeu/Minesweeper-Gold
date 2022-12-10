@@ -59,7 +59,9 @@ function FlagMode:flag(square)
         square.flagged = true
     end
 
-    ui.topBar.dashBoard.minesCounter:update(square)
+    if not square.swept then
+        ui.topBar.dashBoard.minesCounter.remaining = ui.topBar.dashBoard.minesCounter.remaining -1
+    end
     ui.leftBar.flagMode:toggle()
 end
 

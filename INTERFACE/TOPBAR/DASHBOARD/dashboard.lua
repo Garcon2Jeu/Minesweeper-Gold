@@ -11,10 +11,6 @@ function DashBoard:new(topBar)
     self.sweepersCounter = SweepersCounter(topBar, self)
 end
 
-function DashBoard:draw(menuScreen)
-    self.minesCounter:update()
-end
-
 function DashBoard:draw()
     self.minesCounter:draw()
     self.goldCounter:draw()

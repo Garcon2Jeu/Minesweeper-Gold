@@ -62,13 +62,18 @@ function Sweepers:onClick(square)
 
     if square.isGolden then
         ui.topBar.dashBoard.goldCounter:update()
-
-        --if square.flagged then
-            --square.flagged = false
-        --end
     end
 
-    ui.topBar.dashBoard.minesCounter:update(square)
+    if not square.flagged 
+    and square.isMine then
+        ui.topBar.dashBoard.minesCounter.remaining = 
+            ui.topBar.dashBoard.minesCounter.remaining -1
+    end
+
+    if square.flagged then
+        square.flagged = false
+    end
+
 
     self:toggle()
 end
