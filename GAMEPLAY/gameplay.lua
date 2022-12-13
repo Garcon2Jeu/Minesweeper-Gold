@@ -103,7 +103,6 @@ function GamePlay:rightClick(gamePlay, square)
         return
     end
 
-    ui.leftBar.flagMode:toggle()
     ui.leftBar.flagMode:flag(square)
 end
 

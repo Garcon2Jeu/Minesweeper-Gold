@@ -66,7 +66,9 @@ function FlagMode:flag(square)
         ui.topBar.dashBoard.minesCounter.remaining = ui.topBar.dashBoard.minesCounter.remaining -1
     end
 
-    ui.leftBar.flagMode:toggle()
+    if self.activated then
+        self:toggle()
+    end
 end
 
 
