@@ -53,15 +53,19 @@ end
 
 
 function FlagMode:flag(square)
-    if square.flagged then
-        square.flagged = false
-    else
-        square.flagged = true
+    if gamePlay.sweepers.activated 
+    or square.swept then
+        return
     end
 
-    if not square.swept then
+    if square.flagged then
+        square.flagged = false
+        ui.topBar.dashBoard.minesCounter.remaining = ui.topBar.dashBoard.minesCounter.remaining +1
+    else
+        square.flagged = true
         ui.topBar.dashBoard.minesCounter.remaining = ui.topBar.dashBoard.minesCounter.remaining -1
     end
+
     ui.leftBar.flagMode:toggle()
 end
 
