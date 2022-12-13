@@ -118,7 +118,6 @@ function Map:plantSweepCoins()
                 and not square:isSurroundingSquareFirstClicked(self, row, column) then
                     
                     if coinsCounter >= self.sweepCoins then
-                        print(coinsCounter)
                         return
                     end
                     

@@ -15,9 +15,8 @@ function Square:new(row, column)
     self.cleared      = false
     self.flagged      = false
     self.swept        = false
-    self.sweepCoin   = false
-
-    
+    self.sweepCoin    = false
+    self.radius       = 0
 end
 
 
@@ -33,8 +32,9 @@ function Square:draw(ui, gamePlay)
     love.graphics.rectangle(self.drawMode, self.x, self.y, self.width, self.height)
 
     if self.isMine then 
-        love.graphics.circle("line", self.x + self.width /2, self.y + self.height /2, 10)
-    elseif self.clue > 0 then 
+        self.radius = self.width /3
+        love.graphics.circle("line", self.x + self.width /2, self.y + self.height /2, self.radius)
+    elseif self.clue > 0 then
         love.graphics.printf(self.textData.text, self.textData.font, self.textData.transform, 
                              self.textData.limit, self.textData.align)
     end

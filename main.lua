@@ -7,7 +7,7 @@ require "/MAP/map"
 require "/DEBUG/debug"
 
 
-seed = {mapMode = "presets", mapSize = "small", difficulty = "easy", gameMode = "gold"}
+seed = {mapMode = "presets", mapSize = "medium", difficulty = "normal", gameMode = "gold"}
 
 function love.load()
     gamePlay = GamePlay(seed)

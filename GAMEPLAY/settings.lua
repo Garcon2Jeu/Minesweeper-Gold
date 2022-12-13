@@ -24,14 +24,14 @@ function setMapData(seed)
     rates = {}
 
     if seed.difficulty == "easy" then 
-        rates.mines = 0.15
-        rates.gold  = 0.12
-        rates.bonus = 4
+        rates.mines = 0.10
+        rates.gold  = 0.5
+        rates.bonus = 0
     end
 
     if seed.difficulty == "normal" then 
-        rates.mines = 0.20
-        rates.gold  = 0.15
+        rates.mines = 0.16
+        rates.gold  = 0.10
         rates.bonus = 3
     end
 
@@ -44,7 +44,7 @@ function setMapData(seed)
 
     mapData.mines        = math.floor(mapData.totalSquares * rates.mines)
     mapData.gold         = math.floor(mapData.totalSquares * rates.gold)
-    mapData.sweepers.max = mapData.mines + mapData.gold + rates.bonus
+    mapData.sweepers.max = mapData.gold + rates.bonus
 
 
     if seed.mapMode == "custom" then
@@ -52,12 +52,11 @@ function setMapData(seed)
         mapData.columns      = ui.menuScreen.custom.customSize.columns.gauge.number
         mapData.mines        = ui.menuScreen.custom.customMines.gauge.number
         mapData.gold         = ui.menuScreen.custom.customGold.gauge.number
-        mapData.sweepers.max = mapData.mines + mapData.gold + 
+        mapData.sweepers.max = mapData.gold + 
                                 ui.menuScreen.custom.customSweepers.gauge.number
-
         end
         
-    mapData.sweepers.required = math.floor((mapData.totalSquares - mapData.mines - 
+    mapData.sweepers.required = math.floor((mapData.totalSquares - mapData.mines -
                                             mapData.gold) / mapData.sweepers.max)
     mapData.sweepers.limit    = mapData.sweepers.max * mapData.sweepers.required 
 
