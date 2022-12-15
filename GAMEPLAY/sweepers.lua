@@ -9,6 +9,7 @@ end
 
 
 function Sweepers:update()
+    self.limit.current = self.limit.current +1
     self:countRequired()
     self:addToInventory()
 end

@@ -124,7 +124,7 @@ function MapDisplay:drawSquares(gamePlay, map)
             square.y        = self.zoomedGrid.y + self.zoomedGrid.squareArea * (row -1)
             square.width    = self.zoomedGrid.squareSize
             square.height   = self.zoomedGrid.squareSize
-            square.textData = centerText(square.clue, FontBig, square)
+            square.textData = centerText(square.clue, FontMedium, square)
 
             square:draw(ui, gamePlay)
         end

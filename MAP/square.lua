@@ -163,13 +163,12 @@ end
 
 function Square:clearEmptySquares(map, row, column)
     self.cleared = true
-    gamePlay.sweepers.limit.current = gamePlay.sweepers.limit.current +1
-
+    
+    gamePlay.sweepers:update()
     if gamePlay.sweepers.activated then
         return
     end
 
-    gamePlay.sweepers:update()
     
     if self.clue > 0 then
         return
@@ -183,16 +182,15 @@ function Square:clearEmptySquares(map, row, column)
             and not map.grid[i][j].cleared then
                 local surroundingSquare = map.grid[i][j]
                 
+                if surroundingSquare.isGolden then
+                    return
+                end
+
                 if surroundingSquare.clue == 0 then
                     surroundingSquare:clearEmptySquares(map, i, j)
                 else
                     surroundingSquare.cleared = true
-                    gamePlay.sweepers.limit.current = gamePlay.sweepers.limit.current +1
                     gamePlay.sweepers:update()
-                end
-                
-                if surroundingSquare.isGolden then
-                    surroundingSquare.cleared = false
                 end
             end
         end
