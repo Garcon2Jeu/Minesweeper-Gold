@@ -10,7 +10,7 @@ function Map:new(gamePlay)
     self.totalSquares = gamePlay.mapData.totalSquares
     self.mines        = gamePlay.mapData.mines
     self.gold         = gamePlay.mapData.gold
-    self.sweepCoins   = gamePlay.mapData.sweepers.limit
+    self.sweepCoins   = {limit = gamePlay.mapData.sweepers.limit, current = 0}
 end
 
 
@@ -46,7 +46,7 @@ end
 function Map:populateGrid()
     self:plantGold()
     self:plantMines()
-    self:plantSweepCoins()
+    --self:plantSweepCoins()
 end
 
 function Map:plantMines()

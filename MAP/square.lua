@@ -163,6 +163,7 @@ end
 
 function Square:clearEmptySquares(map, row, column)
     self.cleared = true
+    gamePlay.sweepers.limit.current = gamePlay.sweepers.limit.current +1
 
     if gamePlay.sweepers.activated then
         return
@@ -186,6 +187,7 @@ function Square:clearEmptySquares(map, row, column)
                     surroundingSquare:clearEmptySquares(map, i, j)
                 else
                     surroundingSquare.cleared = true
+                    gamePlay.sweepers.limit.current = gamePlay.sweepers.limit.current +1
                     gamePlay.sweepers:update()
                 end
                 

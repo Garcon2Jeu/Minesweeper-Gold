@@ -24,9 +24,9 @@ function setMapData(seed)
     rates = {}
 
     if seed.difficulty == "easy" then 
-        rates.mines = 0.10
-        rates.gold  = 0.5
-        rates.bonus = 0
+        rates.mines = 0.13
+        rates.gold  = 0.07
+        rates.bonus = 10
     end
 
     if seed.difficulty == "normal" then 

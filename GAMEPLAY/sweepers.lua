@@ -4,7 +4,7 @@ function Sweepers:new(mapData)
     self.activated = false
     self.inventory = {max = mapData.sweepers.max,      current = 0}
     self.required  = {max = mapData.sweepers.required, current = 0}
-    self.limit     = mapData.sweepers.limit
+    self.limit     = {limit = mapData.sweepers.limit,  current = 0}
 end
 
 
@@ -30,6 +30,10 @@ end
 
 
 function Sweepers:countRequired()
+    if gamePlay.sweepers.limit.current > gamePlay.sweepers.limit.limit then
+        return
+    end
+
     self.required.current = self.required.current +1
 end
 
