@@ -159,13 +159,24 @@ function GamePlay:endGame(map, result)
 
     score.time        = math.floor(love.timer.getTime() - self.time) .." seconds"
     
-    score.exploration = math.floor(getPercentageFromNumber(mapData.totalSquares, score.squares.cleared))
+    score.exploration = math.floor(getPercentageFromNumber(mapData.totalSquares, score.squares.cleared)) .."%"
+
+    score.final = (score.squares.cleared * 10) - 
+                  (score.squares.missed  * 10) +
+                  (score.mines.flagged   * 10) +
+                  (score.mines.swept     * 15) -
+                  (score.mines.missed    * 15) +
+                  (score.gold.swept      * 30) -
+                  (score.gold.missed     * 30)
+
+
     if result == "lost" then
-        score.final = score.exploration /2 .."%"
-    else
-        score.final = score.exploration .."%"
+        score.final = score.final /2
     end
-    score.exploration = score.exploration .."%"
+
+    if score.final < 0 then
+        score.final = 0
+    end
 
     ui.topBar.scoreBoard:update(score)
 end
