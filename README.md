@@ -117,3 +117,26 @@ As for ASSETS, it is the directory in which i've placed the font i've used throu
 Short for "Libraries", LIBS contains 2 files:
 - classic.lua
 - helpers.lua
+
+The file "classic.lua" is a library of functions that implements Object-Oriented programming for the lua language, written by github user RXI (https://github.com/rxi/classic). I learnt to use it while following Sheepolution's tutorial "How to Löve?" (https://sheepolution.com/learn/book/contents) prior the start of this project
+
+The file "helpers.lua" is a collection of functions and global variables I use througout this project. You'll find here:
+
+* The object module.
+* A list variable containing the width and height of the window.
+* 5 different variables for different font sizes.
+* 9 list variables for different colors.
+* A function I wrote to streamline centering a text within a container using the LÖVE2D engine.
+* 2 functions to help me convert percentages to numbers and number to percentages (Note: Prior to starting CS50, I hadn't practiced my math skills for about a decade. Which is why I had to write two whole functions to that end. I chose to keep them for keepsake).
+* A function returning the position of the mouse in the X and Y axes in a single list variable.
+* 3 functions returning a boolean whether the mouse is over the map screen (which I'll explain better later on), a single square on the grid, and the menu screen using colision logic.
+
+
+## GAMEPLAY
+
+The GAMEPLAY directory contains three files:
+- gameplay.lua
+- settings.lua
+- sweepers.lua
+
+gameplay.lua is one of the major files of this project: it handles the game's states (start, play, pause and over), how to launch a game, what happens when the player clicks anywhere on the screen, how and when to end a game and processes the final score. It is closely linked with settings.lua, which process the data needed to build the game (number of tiles, mines, sweepers, etc...) and sweepers.lua, which implements the sweep mechanic of the game.

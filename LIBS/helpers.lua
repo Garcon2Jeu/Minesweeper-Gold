@@ -5,8 +5,8 @@ Object = require "/LIBS/classic"
 
 
 WINDOW = {}
-WINDOW.width = love.graphics.getWidth()
-WINDOW.height = love.graphics.getHeight()
+    WINDOW.width = love.graphics.getWidth()
+    WINDOW.height = love.graphics.getHeight()
 
 
 
@@ -139,13 +139,3 @@ end
 
 
 
-function isSquareReal(map, row, column)
-    if  row    > 0
-    and row    < map.rows +1
-    and column > 0
-    and column < map.columns +1 then
-        return true
-    end
-
-    return false
-end
