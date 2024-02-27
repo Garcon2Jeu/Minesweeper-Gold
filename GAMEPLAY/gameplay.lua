@@ -18,22 +18,14 @@ function GamePlay:update(status, result)
     if status == "start" then 
         self.start  = true
         self.play   = false
-        --self.paused = false
         self.ended  = false
     elseif status == "play" then 
         self.start  = false
         self.play   = true
-        --self.paused = false
         self.ended  = false
-    --elseif status == "paused" then 
-        --self.start  = false
-        --self.play   = false
-        --self.paused = true
-        --self.ended  = false
     elseif status == "over" then 
         self.start  = false
         self.play   = false
-        --self.paused = false
         self.over   = true
 
         self:endGame(map, result)
